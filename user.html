@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image.png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="user.js" defer></script>
+    <title>Pour Taste</title>
+</head>
+<body>
+    <header>
+        <h1>Pour Taste</h1>
+    </header>
+    <main>
+        <section>
+            <button class="create-new-party">Create Party</button>
+            <button class="join-party">Join Party</button>
+        </section>
+        <section class="display-parties">
+            <h2>Upcoming Parties:</h2>
+            <section class="upcoming"></section>
+            <h2>Past Parties:</h2>
+            <section class="past"></section>
+        </section>
+        <section class="create-party hidden">
+            <form class="create-party-form">
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date">
+                <label for="time">Time</label>
+                <input type="time" name="time" id="time">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location">
+                <input type="submit" value="Create Party">
+            </form>
+            <p class="create-party-errors"></p>
+            <button class="back-button">Back</button>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>
