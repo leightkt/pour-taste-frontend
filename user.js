@@ -1,4 +1,5 @@
 const backendURL = 'http://localhost:9000/'
+
 const $createPartyForm = document.querySelector(".create-party-form")
 const $createPartyErrors = document.querySelector(".create-party-errors")
 const $displayParties = document.querySelector(".display-parties")
@@ -7,6 +8,12 @@ const $pastParties = document.querySelector(".past")
 const $createPartyButton = document.querySelector(".create-new-party")
 const $joinPartyButton = document.querySelector(".join-party")
 const $backButton = document.querySelector(".back-button")
+const $joinPartySection = document.querySelector('.join-party-section')
+const $joinPartyForm = document.querySelector('.join-party-form')
+const $joinErrors = document.querySelector('.join-errors')
+const $backFromJoinButton = document.querySelector('.back-from-join')
+const $viewTastingsButton = document.querySelector('.view-tastings')
+
 const searchParams = new URLSearchParams(window.location.search)
 const userId = parseInt(searchParams.get('user_id'))
 
@@ -20,24 +27,24 @@ fetch(`${backendURL}users/${userId}`, {
     .then(response => response.json())
     .then(result => {
         console.log(result)
-        result.parties.forEach(party => displayParty(party))
+        result.invitations.forEach(invite => displayParty(invite))
 
     })
 
 $createPartyButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $createPartyForm.parentNode, $createPartyButton.parentNode])
+    toggleHidden([$displayParties, $createPartyForm.parentNode])
 })
 
 $backButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $createPartyForm.parentNode, $createPartyButton.parentNode])
+    toggleHidden([$displayParties, $createPartyForm.parentNode])
 })
 
 $createPartyForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.target)
-    const date = new Date(formData.get('date'))
-    const time = formData.get('time')
+    const date = formData.get('date').toString()
+    const time = formData.get('time').toString()
     const location = formData.get('location')
     
     fetch(`${backendURL}parties`, {
@@ -61,8 +68,7 @@ $createPartyForm.addEventListener('submit', (event) => {
                 $createPartyErrors.textContent = result.errors
             } else {
                 event.target.reset()
-                console.log(result)
-                // window.location.replace(`/user.html?user_id=${userId}`)
+                window.location.replace(`/user.html?user_id=${userId}`)
             }
         })
 })
@@ -71,44 +77,48 @@ function toggleHidden(array) {
     array.forEach(element => element.classList.toggle("hidden"))
 }
 
-function displayParty(party){
+function displayParty(invite){
+    const $partydiv = document.createElement('div')
     const $date = document.createElement('h3')
     const $location = document.createElement('h3')
-    const $host = setHost(party)
+    const $host = setHost(invite)
 
-    $date.textContent = party.date
-    $location.textContent = party.location
-    appendParty(party, $date, $host, $location)
+    $date.textContent = invite.party.date
+    $location.textContent = invite.party.location
+    $partydiv.append($date, $location, $host)
+    appendParty(invite, $partydiv, $host)
 }
 
-function setHost(party){
+function setHost(invite){
     const $host = document.createElement('h3')
-    if (userId === party.user_id) {
+    if (invite.host === true) {
         $host.innerText = "You're Hosting!"
     } else {
-        $host.innerText = party.user.name
+        $host.innerText = ""
     }
     return $host
 }
 
-function appendParty(party, $date, $host, $location){
+function appendParty(invite, $partydiv, $host){
     const date = new Date()
-    const partydate = new Date(party.date)
-    if (partydate.getTime() < date.getTime()){
-        const $deleteButton = addDeleteButton(party)
-        $upcomingParties.append($date, $location, $host, $deleteButton)
+    const partydate = new Date(invite.party.date)
+    if (partydate.getTime() > date.getTime()){
+        const $deleteButton = addDeleteButton(invite)
+        $partydiv.append($deleteButton)
+        $upcomingParties.append($partydiv)
     } else {
-        $pastParties.append($date, $location, $host)
+        $host.innerText = "You hosted!"
+        $pastParties.append($partydiv)
     }
 }
 
-function addDeleteButton(party){
+function addDeleteButton(invite){
     const $deleteButton = document.createElement('button')
     $deleteButton.innerText = "Delete"
     $deleteButton.addEventListener('click', (event) => {
         $deleteButton.parentNode.remove()
 
-        fetch(`${backendURL}parties/${party.id}`, {
+        fetch(`${backendURL}parties/${invite.party.id}`, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",
@@ -121,3 +131,46 @@ function addDeleteButton(party){
     })
     return $deleteButton
 }
+
+$joinPartyButton.addEventListener('click', (_) => {
+    toggleHidden([$displayParties, $joinPartySection])
+})
+
+$joinPartyForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    const party_id = formData.get('party_id')
+
+    fetch(`${backendURL}invitations`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            invitation: {
+                party_id: party_id,
+                host: false,
+                user_id: userId
+            }
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.errors){
+            $joinErrors.textContent = result.errors
+        } else {
+            event.target.reset()
+            window.location.replace(`/user.html?user_id=${userId}`)
+        }
+    })
+})
+
+$backFromJoinButton.addEventListener('click', (_) => {
+    toggleHidden([$displayParties, $joinPartySection])
+})
+
+$viewTastingsButton.addEventListener('click', (_) => {
+    window.location.replace(`/tastings.html?user_id=${userId}`)
+})
