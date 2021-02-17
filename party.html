@@ -14,6 +14,38 @@
         <h1>Pour Taste</h1>
     </header>
     <main>
+        <section class="party-details">
+            <h2 class="party-date"></h2>
+            <h3 class="party-location"></h3>
+            <h3 class="party-time"></h3>
+            <h3 class="party-host"></h3>
+        </section>
+        <section class="results"></section>
+        <form class="rate-wines">
+        </form>
+        <section>
+            <h2>Add a Wine to Your Party:</h2>
+            <form class="add-wine">
+                <label for="wine-brand">Brand:</label>
+                <input type="text" name="brand" id="wine-brand">
+                <label for="wine-name">Wine Name:</label>
+                <input type="text" name="name" id="wine-name">
+                <label for="wine-year">Year:</label>
+                <input type="number" name="year" id="wine-year">
+                <label for="wine-variety">Variety:</label>
+                <input type="text" name="variety" id="wine-variety" placeholder="Pinot Gris, Chardonay...">
+                <label for="wine-type">Type:</label>
+                <select name="wine_type" id="wine-type">
+                    <option>White</option>
+                    <option>Red</option>
+                    <option>Sparkling</option>
+                    <option>Rose</option>
+                    <option>Dessert</option>
+                </select>
+                <input type="submit" value="Add Wine to Party">
+            </form>
+            <p class="add-errors"></p>
+        </section>
     </main>
     <footer></footer>
 </body>

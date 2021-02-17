@@ -69,6 +69,7 @@ $createPartyForm.addEventListener('submit', (event) => {
             } else {
                 event.target.reset()
                 window.location.replace(`/user.html?user_id=${userId}`)
+                console.log(result)
             }
         })
 })
@@ -104,7 +105,8 @@ function appendParty(invite, $partydiv, $host){
     const partydate = new Date(invite.party.date)
     if (partydate.getTime() > date.getTime()){
         const $deleteButton = addDeleteButton(invite)
-        $partydiv.append($deleteButton)
+        const $viewDeetsButton = addViewButton(invite)
+        $partydiv.append($deleteButton, $viewDeetsButton)
         $upcomingParties.append($partydiv)
     } else {
         $host.innerText = "You hosted!"
@@ -118,18 +120,31 @@ function addDeleteButton(invite){
     $deleteButton.addEventListener('click', (event) => {
         $deleteButton.parentNode.remove()
 
-        fetch(`${backendURL}parties/${invite.party.id}`, {
+        fetch(`${backendURL}invitations/${invite.id}`, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                host: invite.host
+            })
         })
             .then(response => response.json())
             .then(result => console.log(result))
 
     })
     return $deleteButton
+}
+
+function addViewButton(invite){
+    const $viewDeetsButton= document.createElement('button')
+    $viewDeetsButton.innerText = "View Details"
+    $viewDeetsButton.addEventListener('click', (_) => {
+        window.location.replace(`/party.html?user_id=${userId}&party_id=${invite.party_id}`)
+    })
+    return $viewDeetsButton
 }
 
 $joinPartyButton.addEventListener('click', (_) => {
