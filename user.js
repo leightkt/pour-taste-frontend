@@ -13,6 +13,7 @@ const $joinPartyForm = document.querySelector('.join-party-form')
 const $joinErrors = document.querySelector('.join-errors')
 const $backFromJoinButton = document.querySelector('.back-from-join')
 const $viewTastingsButton = document.querySelector('.view-tastings')
+const $logOutButton = document.querySelector('.log-out-button')
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = parseInt(searchParams.get('user_id'))
@@ -20,13 +21,13 @@ const userId = parseInt(searchParams.get('user_id'))
 fetch(`${backendURL}users/${userId}`, {
     method: "GET",
     headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
 })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
         result.invitations.forEach(invite => displayParty(invite))
 
     })
@@ -50,6 +51,7 @@ $createPartyForm.addEventListener('submit', (event) => {
     fetch(`${backendURL}parties`, {
         method: "POST",
         headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
@@ -63,13 +65,13 @@ $createPartyForm.addEventListener('submit', (event) => {
         })
     })
         .then(response => response.json())
-        .then(result => {
-            if (result.errors){
-                $createPartyErrors.textContent = result.errors
+        .then(invite => {
+            if (invite.errors){
+                $createPartyErrors.textContent = invite.errors
             } else {
                 event.target.reset()
-                window.location.replace(`/user.html?user_id=${userId}`)
-                console.log(result)
+                displayParty(invite)
+                toggleHidden([$displayParties, $createPartyForm.parentNode])
             }
         })
 })
@@ -123,6 +125,7 @@ function addDeleteButton(invite){
         fetch(`${backendURL}invitations/${invite.id}`, {
             method: "DELETE",
             headers: {
+                "Authorization": `Bearer ${localStorage.token}`,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -131,8 +134,6 @@ function addDeleteButton(invite){
                 host: invite.host
             })
         })
-            .then(response => response.json())
-            .then(result => console.log(result))
 
     })
     return $deleteButton
@@ -142,7 +143,11 @@ function addViewButton(invite){
     const $viewDeetsButton= document.createElement('button')
     $viewDeetsButton.innerText = "View Details"
     $viewDeetsButton.addEventListener('click', (_) => {
-        window.location.replace(`/party.html?user_id=${userId}&party_id=${invite.party_id}`)
+        if (invite.host == true) {
+            window.location.replace(`/hostParty.html?user_id=${userId}&party_id=${invite.party_id}`)
+        } else {
+            window.location.replace(`/userParty.html?user_id=${userId}&party_id=${invite.party_id}`)
+        }
     })
     return $viewDeetsButton
 }
@@ -160,6 +165,7 @@ $joinPartyForm.addEventListener('submit', (event) => {
     fetch(`${backendURL}invitations`, {
         method: "POST",
         headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
@@ -172,12 +178,13 @@ $joinPartyForm.addEventListener('submit', (event) => {
         })
     })
     .then(response => response.json())
-    .then(result => {
-        if (result.errors){
-            $joinErrors.textContent = result.errors
+    .then(invite => {
+        if (invite.errors){
+            $joinErrors.textContent = invite.errors
         } else {
             event.target.reset()
-            window.location.replace(`/user.html?user_id=${userId}`)
+            displayParty(invite)
+            toggleHidden([$displayParties, $joinPartySection])
         }
     })
 })
@@ -188,4 +195,9 @@ $backFromJoinButton.addEventListener('click', (_) => {
 
 $viewTastingsButton.addEventListener('click', (_) => {
     window.location.replace(`/tastings.html?user_id=${userId}`)
+})
+
+$logOutButton.addEventListener('click', (_) => {
+    localStorage.removeItem('token')
+    window.location.replace(`/`)
 })

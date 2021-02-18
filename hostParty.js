@@ -8,17 +8,24 @@ const $rateWines = document.querySelector('.rate-wines')
 const $addWine = document.querySelector('.add-wine')
 const $addErrors = document.querySelector('.add-errors')
 const $rateErrors = document.querySelector('.rate-wine-errors')
+const $partyId = document.querySelector('.party-id')
+const $userPageButton = document.querySelector('.user-page')
+const $statusButton = document.querySelector('.party-status')
+const $seeResultsButton = document.querySelector('.see-results')
+const $totalScoresButton = document.querySelector('.total-scores')
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = searchParams.get('user_id')
 const partyId = searchParams.get('party_id')
 const host = searchParams.get('host')
-console.log(userId)
-console.log(partyId)
+
+
+addWineToParty()
 
 fetch(`${backendURL}partydeets`, {
     method: "POST",
     headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
         "Accept": "application/json",
         "Content-Type": "application/json"
     },
@@ -29,38 +36,33 @@ fetch(`${backendURL}partydeets`, {
 })
     .then(response => response.json())
     .then(partyData => {
-        console.log(partyData)
-        checkHostStatus(partyData)
+        partyStatusAction(partyData)
+        hostMode(partyData)
         
     })
 
-addWineToParty()
+function checkPartyStatus(partyData){
+    if (partyData.party.party_open == true) {
+        displayTastingsHost(partyData)
+    } else {
+        const $closedMessage = document.createElement('p')
+        $closedMessage.textContent = "This Party is Closed for Rating"
+        $rateWines.append($closedMessage)
+        $addWine.parentNode.classList.add('hidden')
+    }
+}
 
-function displayPartyDeets(partyData){
+function displayPartyDeets(partyData) {
     $partyDate.textContent = partyData.party.date
     $partyLocation.textContent = partyData.party.location
     $partyTime.textContent = partyData.party.time
 }
 
-function checkHostStatus(partyData){
-    if (partyData.host.host_id == userId){
-        hostMode(partyData)
-    } else {
-        attendeeMode()
-    }
-}
-
-function hostMode(partyData){
-    console.log("You're the host!")
+function hostMode(partyData) {
     displayPartyDeets(partyData)
     $partyHost.textContent = "You're hosting!"
-    displayTastingsHost(partyData)
-}
-
-function attendeeMode(partyData) {
-    console.log("your an attendee")
-    displayPartyDeets(partyData)
-    $partyHost.textContent = `Hosted by: ${partyData.host.host_name}`
+    checkPartyStatus(partyData)
+    $partyId.textContent = `Party ID: ${partyId}`
 }
 
 function addWineToParty() {
@@ -77,6 +79,7 @@ function addWineToParty() {
         fetch(`${backendURL}wines`, {
             method: "POST",
             headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
             "Accept": "application/json",
             "Content-Type": "application/json"
             }, 
@@ -97,7 +100,6 @@ function addWineToParty() {
             if (tasting.errors){
                 $addErrors.textContent = tasting.errors[0]
             } else {
-                console.log(tasting)
                 event.target.reset()
                 appendTastingHost(tasting)
             }
@@ -105,14 +107,14 @@ function addWineToParty() {
     })
 }
 
-function displayTastingsHost(partyData){
+function displayTastingsHost(partyData) {
     partyData.tastings.forEach((tasting) => {
         appendTastingHost(tasting)
     })
 
 }
 
-function appendTastingHost(tasting){
+function appendTastingHost(tasting) {
     const $wineForm = document.createElement("form")
 
     const $wineLabel = document.createElement('label')
@@ -125,52 +127,57 @@ function appendTastingHost(tasting){
 
     let tasting_id = null
 
-    const $submitRatingButton = document.createElement('button')
+    const $submitRatingButton = document.createElement('input')
+    $submitRatingButton.type = "submit"
+    $submitRatingButton.value = "Submit"
     $submitRatingButton.classList.add('.submit-rating')
-    $submitRatingButton.innerText = "Submit Rating"
+    
+    const $deleteWineButton = document.createElement('button')
+    $deleteWineButton.classList.add('delete-wine')
+    $deleteWineButton.innerText = "Remove From Party"
 
     const $wineRatingInput = addWineRatingInput()
 
     if (tasting.letter) {
         $wineLabel.for = tasting.wine.brand
-        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.wine_type} [${tasting.letter}]`
+        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.year} [${tasting.letter}]`
         tasting_id = tasting.id
         let notes = tasting.notes
-        checkForRating($wineForm, tasting.rating, $notes, notes, $wineRatingInput)
+        checkForRating($wineForm, tasting.rating, $notes, notes, $wineRatingInput, $submitRatingButton)
     } else {
         $wineLabel.for = tasting.wine.brand
-        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.wine_type} [${tasting.tasting.letter}]`
+        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.year} [${tasting.tasting.letter}]`
         tasting_id = tasting.tasting.id
         let notes = tasting.tasting.notes
-        checkForRating($wineForm, tasting.tasting.rating, $notes, notes, $wineRatingInput)
+        checkForRating($wineForm, tasting.tasting.rating, $notes, notes, $wineRatingInput, $submitRatingButton)
     }
 
     
 
     
     addSubmitRatingAction($wineForm, tasting_id)
+    addDeleteWineAction($deleteWineButton, tasting_id)
     $wineForm.append($wineLabel, $wineRatingInput, $notesLabel, $notes, $submitRatingButton)
-    $rateWines.append($wineForm)
+    $rateWines.append($wineForm, $deleteWineButton)
 
 }
 
-function addWineRatingInput(){
+function addWineRatingInput() {
     const $wineRatingInput = document.createElement('select')
     setOptions($wineRatingInput)
     $wineRatingInput.name = "rating"
     return $wineRatingInput
 }
 
-function setOptions($wineRatingInput){
+function setOptions($wineRatingInput) {
     for (i = 1; i < 11; i++){
         const $option = document.createElement('option')
         $option.innerText = i
-        $option.classList.add(`${i}`)
         $wineRatingInput.append($option)
     }
 }
 
-function addSubmitRatingAction($wineForm, tasting_id){
+function addSubmitRatingAction($wineForm, tasting_id) {
     $wineForm.addEventListener('submit', (event) => {
         event.preventDefault()
 
@@ -181,6 +188,7 @@ function addSubmitRatingAction($wineForm, tasting_id){
         fetch(`${backendURL}tastings/${tasting_id}`, {
             method: "PATCH",
             headers: {
+                "Authorization": `Bearer ${localStorage.token}`,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -195,18 +203,94 @@ function addSubmitRatingAction($wineForm, tasting_id){
             if (tasting.errors){
                 $rateErrors.textContent = tasting.errors[0]
             } else {
-                console.log(tasting)
+                const $submitButton = $wineForm.querySelector('input[type="submit"]')
                 $wineForm.classList.add('green')
+                $submitButton.value = "Update"
             }
         })
     })
 }
 
-function checkForRating($wineForm, rating, $notes, notes, $wineRatingInput){
-    console.log(rating)
+function checkForRating($wineForm, rating, $notes, notes, $wineRatingInput, $submitRatingButton) {
     if (rating){
         $wineForm.classList.add('green')
         $notes.innerText = notes
         $wineRatingInput.value = rating
+        $submitRatingButton.value = "Update"
     }
 }
+
+function addDeleteWineAction($deleteWineButton, tasting_id) {
+    $deleteWineButton.addEventListener('click', (event) => {
+        event.stopImmediatePropagation()
+
+        fetch(`${backendURL}deletetasting?id=${tasting_id}`, {
+            method: "DELETE",
+            headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(result => {
+                $deleteWineButton.previousElementSibling.remove()
+                $deleteWineButton.remove()
+            })
+    })
+}
+
+function partyStatusAction(partyData) {
+    let open_party = null
+    if (partyData.party.party_open === true){
+        $statusButton.textContent = "Close Party"
+        open_party = false
+    } else {
+        $statusButton.textContent = "Open Party"
+        open_party = true
+    }
+    $statusButton.addEventListener('click', (_) => {
+        
+        fetch(`${backendURL}/parties/${partyId}`, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${localStorage.token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                party_open: open_party
+            }) 
+        })
+        .then(response => response.json())
+        .then(result => {
+            window.location.replace(`/hostParty.html?user_id=${userId}&party_id=${partyId}`)
+        })
+    })
+}
+
+$seeResultsButton.addEventListener('click', (_) => {
+    window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+})
+
+$totalScoresButton.addEventListener('click', (_) => {
+    fetch(`${backendURL}/parties/${partyId}`, {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            party_open: false
+        }) 
+    })
+    .then(response => response.json())
+    .then(result => {
+        window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+    })
+})
+
+$userPageButton.addEventListener('click', (_) => {
+    window.location.replace(`/user.html?user_id=${userId}`)
+})

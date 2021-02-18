@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image.png" href="/assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
-    <script src="party.js" defer></script>
+    <script src="hostParty.js" defer></script>
     <title>Pour Taste</title>
 </head>
 <body>
     <header>
         <h1>Pour Taste</h1>
+        <button class="user-page">Account</button>
+        <button class="see-results">View Results</button>
+        <button class="total-scores">Total Scores</button>
+        <button class="party-status"></button>
     </header>
     <main>
         <section class="party-details">
@@ -19,15 +23,14 @@
             <h3 class="party-location"></h3>
             <h3 class="party-time"></h3>
             <h3 class="party-host"></h3>
+            <h3 class="party-id"></h3>
         </section>
-        <section class="results"></section>
-            <h2>Rate:</h2>
         <section class="rate-wines">
         </section>
         <p class="rate-wine-errors"></p>
         <section>
-            <h2>Add a Wine to Your Party:</h2>
             <form class="add-wine">
+                <h2>Add a Wine to Your Party:</h2>
                 <label for="wine-brand">Brand:</label>
                 <input type="text" name="brand" id="wine-brand">
                 <label for="wine-name">Wine Name:</label>
@@ -49,6 +52,7 @@
             <p class="add-errors"></p>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
 </body>
 </html>
