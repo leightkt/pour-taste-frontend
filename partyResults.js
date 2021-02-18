@@ -22,9 +22,14 @@ fetch(`${backendURL}parties/${partyId}`, {
 })
     .then(response => response.json())
     .then(partyData => {
-        displayPartyDeets(partyData)
-        checkDate(partyData)
-        addBack(partyData)
+        if (partyData.message) {
+            window.location.replace(`/`)
+        } else {
+            displayPartyDeets(partyData)
+            checkDate(partyData)
+            addBack(partyData)
+        }
+        
     })
 
 $userPageButton.addEventListener('click', (_) => {

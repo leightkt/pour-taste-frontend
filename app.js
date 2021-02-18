@@ -1,10 +1,16 @@
 const $backendURL = 'http://localhost:9000/'
 const $loginForm = document.querySelector(".login-form")
 const $newUserButton = document.querySelector(".new-user")
+const $aboutButton = document.querySelector('.about')
+const $loginButton = document.querySelector('.log-in')
 const $createUserForm = document.querySelector(".create-user")
 const $loginErrors = document.querySelector(".login-errors")
 const $signupErrors = document.querySelector(".signup-errors")
-const $backToLoginButton = document.querySelector(".back-login")
+const $homeSection = document.querySelector('.home')
+const $loginSection = document.querySelector('.login')
+const $createUserSection = document.querySelector('.create-user-section')
+const $aboutSection = document.querySelector('.about-section')
+const $h1 = document.querySelector('h1')
 
 $loginForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -17,8 +23,25 @@ $loginForm.addEventListener('submit', (event) => {
 })
 
 $newUserButton.addEventListener('click', (_) => {
-    toggleHidden([$loginForm, $createUserForm.parentNode, $newUserButton])
+    hideElements([$homeSection, $loginSection, $aboutSection])
+    $createUserSection.classList.remove('hidden')
 })
+
+$loginButton.addEventListener('click', (_) => {
+    hideElements([$homeSection, $createUserSection, $aboutSection])
+    $loginSection.classList.remove('hidden')
+})
+
+$aboutButton.addEventListener('click', (_) => {
+    hideElements([$homeSection, $loginSection, $createUserSection])
+    $aboutSection.classList.remove('hidden')
+})
+
+$h1.addEventListener('click', (_) => {
+    hideElements([$aboutSection, $loginSection, $createUserSection])
+    $homeSection.classList.remove('hidden')
+})
+
 
 $createUserForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -86,6 +109,7 @@ function login(username, password) {
         })
 }
 
-$backToLoginButton.addEventListener('click', (_) => {
-    toggleHidden([$loginForm, $createUserForm.parentNode, $newUserButton])
-})
+function hideElements(array){
+    array.forEach(element => element.classList.add('hidden'))
+}
+

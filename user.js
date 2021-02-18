@@ -28,7 +28,11 @@ fetch(`${backendURL}users/${userId}`, {
 })
     .then(response => response.json())
     .then(result => {
-        result.invitations.forEach(invite => displayParty(invite))
+        if (result.message) {
+            window.location.replace(`/`)
+        } else {
+            result.invitations.forEach(invite => displayParty(invite))
+        }
 
     })
 

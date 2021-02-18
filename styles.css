@@ -1,46 +1,15 @@
-.tasting-card {
-    background-color: transparent;
-    width: 300px;
-    height: 200px;
-    border: 1px solid #f1f1f1;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+html {
+    margin: 0;
+    padding: 0;
 }
 
-/* This container is needed to position the front and back side */
-.inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
+body {
+    margin: 0;
+    padding: 0;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.tasting-card:hover .inner {
-    transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.front, .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.front {
-    background-color: #bbb;
-    color: black;
-}
-
-/* Style the back side */
-.back {
-    background-color: dodgerblue;
-    color: white;
-    transform: rotateY(180deg);
+main {
+    margin: 0;
 }
 
 .green {
@@ -49,4 +18,135 @@
 
 .hidden { 
     display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-family: 'Thasadith', sans-serif;
+    }
+
+    header {
+        position: absolute;
+        top: 0;
+        margin-top: 0;
+        height: 11rem;
+        width: 100%;
+        background-image: url('./assets/header-image.jpg');
+        background-size: contain;
+        background-size: cover;
+        color: white;
+        text-align: right;
+    }
+
+    h1 {
+        font-family: 'Sofia', cursive;
+        font-size: 2.5rem;
+        padding-right: 1rem;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav > button {
+        background-color: hsl(352, 95%, 42%);
+        color: white;
+        border: none;
+        margin: 0.5rem;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        font-family: 'Thasadith', sans-serif;
+        box-shadow: 2px 2px hsl(351, 100%, 9%);
+    }
+
+    main {
+        margin-top: 12rem;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    footer {
+        border-top: 1px solid black;
+        padding: 1rem 0 0 1rem;
+        height: 1.5rem;
+    }
+
+    .about-dev {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height: 4rem;
+    }
+
+    .about-dev > p {
+        font-size: 0.75rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+
+    .about-dev > a > img {
+        height: 3rem;
+        margin-right: 0.5rem;
+        border-radius: 2rem;
+    }
+
+    .home {
+        background-image: url('https://images.unsplash.com/photo-1591095438120-d0147701080b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDJ8fHdpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+        background-size: contain;
+        background-size: cover;
+        height: 36.5rem;
+        margin: 0;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding-left: 2rem;
+    }
+
+    form > input[type="submit"] {
+        background-color: hsl(352, 95%, 42%);
+        color: white;
+        border: none;
+        margin: 0.5rem;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        box-shadow: 2px 2px hsl(351, 100%, 9%);
+    }
+
+    form > input {
+        width: 12rem;
+        height: 2rem;
+        margin: 1rem;
+        font-family: 'Thasadith', sans-serif;
+        border: none;
+        border-bottom: 1px solid hsl(352, 95%, 42%);
+    }
+
+    .about-section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .about-section p {
+        margin: 0.25rem;
+    }
+
+    .hidden { 
+        display: none;
+    }
 }

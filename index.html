@@ -6,41 +6,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image.png" href="/assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Thasadith&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
     <script src="app.js" defer></script>
     <title>Pour Taste</title>
 </head>
 <body>
     <header>
         <h1>Pour Taste</h1>
+        <nav>
+            <button class="about">About</button>
+            <button class="log-in">Log In</button>
+            <button class="new-user">Sign Up</button>
+        </nav>
     </header>
     <main>
-        <section class="login">
+        <section class="home">
+        </section>
+        <section class="about-section hidden">
+            <h2>WELCOME</h2>
+            <h3>ABOUT</h3>
+            <p>Welcome to Pour Taste! The app that helps you host a flawless blind wine tasting party.
+                Let us take the math out of the equation so you can sit back, relax, and worry about the snacks. 
+            </p>
+            <h3>SET UP YOUR PARTY</h3>
+                <p>
+                    Log in and create a new party.
+                    Ask each guest to bring two bottles of the same wine
+                    in a bag so no one else can see what they've brought.
+                    For each wine, put one in a paper bag for party tasting and
+                    set one aside as a prize for the winner.
+                </p>
+                <p>
+                    Go to your party page and add each bottle wine to your party.
+                    The app will assign a letter to the wine.
+                    Write this letter on the outside of the paper bag of the wine.
+                    It is best to wait until all guests have arrived so you can mix up the order of the tastings.
+                </p>
+                <p>
+                    As your guests arrive direct them to the app and have them join your party using the instructions below 
+                    by giving your party ID (located on your party page).
+                </p>
+            <h3>JOIN A PARTY</h3>
+                <p>
+                    Click Ask your host for their party ID. Log in and click join party.
+                    Once the host has added the wines to the party, new tastings will appear.
+                </p>
+            <h3>TIME TO TASTE</h3>
+                <p>
+                    Grab the glasses and set out the brie, it's time to taste!
+                </p>
+                <p>
+                    Have each guest pour about one ounce of wine per tasting.
+                    Each guest should then rate the wines on a scale of one (nasty sauce) to ten (angle tears in your mouth)
+                    Hosts can rate wines too, but to prevent you from tipping the scales on scores, your ratings don't count
+                    in the final tally. 
+                </p>
+            <h3>FIND WINNER</h3>
+                <p>
+                    Once all the tasting is complete, it's time to find the most highly rated wine!
+                    Go to your party page and click total scores. This will close your party for tasting, 
+                    so make sure everyon is finished! (If you do find stragglers, you can open the party again via your party page.)
+                </p>
+                <p>
+                    The winner will be the wine with the highest average rating, but you'll see the scores for all the wines,
+                    just in case you want to split the prize wine among second and third place too.
+                    Or be ruthless and let the winner take all!
+                </p>
+        </section>
+        <section class="login hidden">
             <form class="login-form">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <label for="username" class="hidden">Username</label>
+                <input type="text" name="username" id="username" placeholder="username">
+                <label for="password" class="hidden">Password</label>
+                <input type="password" name="password" id="password" placeholder="password">
                 <input type="submit" value="Log In">
             </form>
             <p class="login-errors"></p>
-            <button class="new-user">Sign Up</button>
         </section>
-        <section class="hidden">
+        <section class="create-user-section hidden">
             <form class="create-user">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email">
-                <label for="new-username">Username</label>
-                <input type="text" name="username" id="new-username">
-                <label for="new-password">Password</label>
-                <input type="password" name="password" id="new-password">
+                <label for="name" class="hidden">Name</label>
+                <input type="text" name="name" id="name" placeholder="name">
+                <label for="email" class="hidden">Email</label>
+                <input type="text" name="email" id="email" placeholder="email">
+                <label for="new-username" class="hidden">Username</label>
+                <input type="text" name="username" id="new-username" placeholder="username">
+                <label for="new-password" class="hidden">Password</label>
+                <input type="password" name="password" id="new-password" placeholder="password">
                 <input type="submit" value="Create Account">
             </form>
             <p class="signup-errors"></p>
-            <button class="back-login">Back to Login</button>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+        <section class="about-dev">
+            <p>ABOUT THE DEV</p>
+            <p>Kat is a full stack developer located in Denver, CO, and lover of cinnamon rolls and the great outdoors.</p>
+            <a href="https://github.com/leightkt"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdV1kDmxAu9PdbBZUBTWisaLhgxLTrTXY06A&usqp=CAU" alt="github icon"></a>
+        </section>
+    </footer>
 </body>
 </html>

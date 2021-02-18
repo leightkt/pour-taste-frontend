@@ -29,8 +29,11 @@ fetch(`${backendURL}userpartydeets`, {
 })
     .then(response => response.json())
     .then(partyData => {
-        attendeeMode(partyData)
-        
+        if (partyData.message) {
+            window.location.replace(`/`)
+        } else {
+            attendeeMode(partyData)
+        }
     })
 
 function checkPartyStatus(partyData) {

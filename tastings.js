@@ -19,16 +19,17 @@ fetch(`${backendURL}viewtastings?id=${userId}`, {
 })
     .then(response => response.json())
     .then(tastings => {
-        tastings.forEach(tasting => displayTasting(tasting))
-        addRatingSearch(tastings)
-        addTypeSearch(tastings)
+        if (tastings.message) {
+            window.location.replace(`/`)
+        } else {
+            tastings.forEach(tasting => displayTasting(tasting))
+            addRatingSearch(tastings)
+            addTypeSearch(tastings)
+        }
     })
 
 function displayTasting(tasting) {
     $tastydiv = document.createElement('div')
-    $innerdiv = document.createElement('div')
-    $frontdiv = document.createElement('div')
-    $backdiv = document.createElement('div')
 
     $brand = document.createElement('h3')
     $variety = document.createElement('p')
@@ -38,9 +39,7 @@ function displayTasting(tasting) {
     $date = document.createElement('p')
 
     $tastydiv.classList.add('tasting-card')
-    $innerdiv.classList.add('inner')
-    $frontdiv.classList.add('front')
-    $backdiv.classList.add('back')
+
 
     $brand.classList.add('brand')
     $variety.classList.add('variety')
@@ -51,30 +50,27 @@ function displayTasting(tasting) {
 
     $brand.textContent = tasting.wine.brand
     $rating.textContent = tasting.tasting.rating
-    $frontdiv.append($brand, $rating)
-    checkforName(tasting, $name, $backdiv)
-    checkforVariety(tasting, $variety, $backdiv)
+    $tastydiv.append($brand, $rating)
+    checkforName(tasting, $name, $tastydiv)
+    checkforVariety(tasting, $variety, $tastydiv)
     $date.textContent = tasting.date
     $wineType.textContent = tasting.wine.wine_type
-    $backdiv.append($date)
-    $backdiv.prepend($wineType)
+    $tastydiv.append($wineType, $date)
 
-    $innerdiv.append($frontdiv, $backdiv)
-    $tastydiv.append($innerdiv)
     $displayTastings.append($tastydiv)
 }
 
-function checkforName(tasting, $name, $backdiv) {
+function checkforName(tasting, $name, $tastydiv) {
     if (tasting.wine.name){
         $name.textContent = tasting.wine.name
-        $backdiv.append($name)
+        $tastydiv.append($name)
     }
 }
 
-function checkforVariety(tasting, $variety, $backdiv) {
+function checkforVariety(tasting, $variety, $tastydiv) {
     if (tasting.wine.variety){
         $variety.textContent = tasting.wine.variety
-        $backdiv.append($variety)
+        $tastydiv.append($variety)
     }
 }
 
@@ -95,9 +91,9 @@ function searchAttributes(div, $filter) {
     let $brandElement = div.querySelector('.brand')
     let $brand = $brandElement.textContent
     if ($brand.toUpperCase().indexOf($filter) > -1){
-        $brandElement.parentNode.parentNode.parentNode.style.display = ""
+        $brandElement.parentNode.style.display = ""
     } else {
-        $brandElement.parentNode.parentNode.parentNode.style.display = "none"
+        $brandElement.parentNode.style.display = "none"
     }
 }
 
