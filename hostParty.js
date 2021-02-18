@@ -14,6 +14,8 @@ const $statusButton = document.querySelector('.party-status')
 const $seeResultsButton = document.querySelector('.see-results')
 const $totalScoresButton = document.querySelector('.total-scores')
 
+const $deleteButton = document.querySelector('.delete-party')
+
 const searchParams = new URLSearchParams(window.location.search)
 const userId = searchParams.get('user_id')
 const partyId = searchParams.get('party_id')
@@ -41,6 +43,8 @@ fetch(`${backendURL}partydeets`, {
         } else {
             partyStatusAction(partyData)
             hostMode(partyData)
+            addDeletePartyAction(partyData)
+            console.log(partyData)
         }
     })
 
@@ -297,3 +301,22 @@ $totalScoresButton.addEventListener('click', (_) => {
 $userPageButton.addEventListener('click', (_) => {
     window.location.replace(`/user.html?user_id=${userId}`)
 })
+
+function addDeletePartyAction(partyData) {
+    $deleteButton.addEventListener('click', (_) => {
+        fetch(`${backendURL}invitations/${partyData.invite.id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${localStorage.token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                host: true
+            })
+        })
+            .then(response => response.json())
+            .then(window.location.replace(`/user.html?user_id=${userId}`))
+    })
+}

@@ -27,8 +27,9 @@
 
     h1 {
         font-family: 'Sofia', cursive;
-        font-size: 2.5rem;
+        font-size: 2.75rem;
         padding-right: 1rem;
+        margin: 1rem;
     }
 
     nav {
@@ -39,6 +40,19 @@
     }
 
     nav > button {
+        background-color: hsl(352, 95%, 42%);
+        color: white;
+        border: none;
+        margin: 0.5rem;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        font-family: 'Thasadith', sans-serif;
+        box-shadow: 2px 2px hsl(351, 100%, 9%);
+    }
+
+    footer > button {
         background-color: hsl(352, 95%, 42%);
         color: white;
         border: none;
@@ -100,7 +114,7 @@
     }
 
     .home {
-        background-image: url('https://images.unsplash.com/photo-1591095438120-d0147701080b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDJ8fHdpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+        background-image: url('/assets/wine-bubble.jpg');
         background-size: contain;
         background-size: cover;
         height: 33rem;
@@ -155,12 +169,46 @@
         margin: 0.25rem;
     }
 
+    .create-user-section, .login, .join-party-section, .display-parties {
+        min-height: 33rem;
+        padding: 1rem 0 0 1rem;
+    }
+
+        /* USER PAGE */
+
+    .create-party {
+        min-height: 34rem;
+        padding: 1rem 0 0 1rem;
+    }
+
+    .user-footer {
+        background-color: black;
+        height: 5rem;
+    }
+
+    .party-card {
+        width: 10rem;
+        font-family: 'Thasadith', sans-serif;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-shadow: 1px 1px hsla(352, 95%, 42%, 0.198);
+        min-height: 10rem;
+        border-radius: 1rem;
+        text-align: center;
+    }
+
+    button {
+        border: none;
+        font-family: 'Thasadith', sans-serif;
+        background: hsla(352, 95%, 42%, 0.198);
+        font-weight: bolder;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+    }
+
+
     .hidden { 
         display: none;
     }
-
-    .create-user-section, .login {
-        min-height: 33rem;
-    }
-
 }

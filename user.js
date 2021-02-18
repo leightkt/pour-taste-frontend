@@ -5,15 +5,17 @@ const $createPartyErrors = document.querySelector(".create-party-errors")
 const $displayParties = document.querySelector(".display-parties")
 const $upcomingParties = document.querySelector(".upcoming")
 const $pastParties = document.querySelector(".past")
-const $createPartyButton = document.querySelector(".create-new-party")
-const $joinPartyButton = document.querySelector(".join-party")
-const $backButton = document.querySelector(".back-button")
 const $joinPartySection = document.querySelector('.join-party-section')
 const $joinPartyForm = document.querySelector('.join-party-form')
 const $joinErrors = document.querySelector('.join-errors')
-const $backFromJoinButton = document.querySelector('.back-from-join')
+
 const $viewTastingsButton = document.querySelector('.view-tastings')
 const $logOutButton = document.querySelector('.log-out-button')
+const $accountButton = document.querySelector('.account')
+const $createPartyButton = document.querySelector(".create-new-party")
+const $joinPartyButton = document.querySelector(".join-party")
+const $pastPartiesButton = document.querySelector(".past-parties")
+const $currentPartiesButton = document.querySelector(".current-parties")
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = parseInt(searchParams.get('user_id'))
@@ -36,12 +38,46 @@ fetch(`${backendURL}users/${userId}`, {
 
     })
 
+function hideElements(array){
+    array.forEach(element => element.classList.add('hidden'))
+}
+
+function showElements(array){
+    array.forEach(element => element.classList.remove('hidden'))
+}
+
 $createPartyButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $createPartyForm.parentNode])
+    hideElements([$displayParties, $joinPartySection])
+    showElements([$createPartyForm.parentNode])
 })
 
-$backButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $createPartyForm.parentNode])
+$accountButton.addEventListener('click', (_) => {
+    hideElements([$createPartyForm.parentNode, $joinPartySection])
+    showElements([$displayParties])
+})
+
+$joinPartyButton.addEventListener('click', (_) => {
+    hideElements([$createPartyForm.parentNode, $displayParties])
+    showElements([$joinPartySection])
+})
+
+$viewTastingsButton.addEventListener('click', (_) => {
+    window.location.replace(`/tastings.html?user_id=${userId}`)
+})
+
+$logOutButton.addEventListener('click', (_) => {
+    localStorage.removeItem('token')
+    window.location.replace(`/`)
+})
+
+$pastPartiesButton.addEventListener('click', (_) => {
+    hideElements([$upcomingParties])
+    showElements([$pastParties])
+})
+
+$currentPartiesButton.addEventListener('click', (_) => {
+    hideElements([$pastParties])
+    showElements([$upcomingParties])
 })
 
 $createPartyForm.addEventListener('submit', (event) => {
@@ -71,26 +107,24 @@ $createPartyForm.addEventListener('submit', (event) => {
         .then(response => response.json())
         .then(invite => {
             if (invite.errors){
-                $createPartyErrors.textContent = invite.errors
+                $createPartyErrors.textContent = invite.errors[0]
             } else {
                 event.target.reset()
                 displayParty(invite)
-                toggleHidden([$displayParties, $createPartyForm.parentNode])
+                hideElements([$createPartyForm.parentNode, $joinPartySection])
+                showElements([$displayParties])
             }
         })
 })
 
-function toggleHidden(array) {
-    array.forEach(element => element.classList.toggle("hidden"))
-}
-
 function displayParty(invite){
     const $partydiv = document.createElement('div')
+    $partydiv.classList.add('party-card')
     const $date = document.createElement('h3')
     const $location = document.createElement('h3')
     const $host = setHost(invite)
 
-    $date.textContent = invite.party.date
+    $date.textContent = reverseDate(invite.party.date)
     $location.textContent = invite.party.location
     $partydiv.append($date, $location, $host)
     appendParty(invite, $partydiv, $host)
@@ -110,42 +144,18 @@ function appendParty(invite, $partydiv, $host){
     const date = new Date()
     const partydate = new Date(invite.party.date)
     if (partydate.getTime() > date.getTime()){
-        const $deleteButton = addDeleteButton(invite)
         const $viewDeetsButton = addViewButton(invite)
-        $partydiv.append($deleteButton, $viewDeetsButton)
-        $upcomingParties.append($partydiv)
+        $partydiv.append($viewDeetsButton)
+        $upcomingParties.prepend($partydiv)
     } else {
         $host.innerText = "You hosted!"
-        $pastParties.append($partydiv)
+        $pastParties.prepend($partydiv)
     }
-}
-
-function addDeleteButton(invite){
-    const $deleteButton = document.createElement('button')
-    $deleteButton.innerText = "Delete"
-    $deleteButton.addEventListener('click', (event) => {
-        $deleteButton.parentNode.remove()
-
-        fetch(`${backendURL}invitations/${invite.id}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${localStorage.token}`,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: userId,
-                host: invite.host
-            })
-        })
-
-    })
-    return $deleteButton
 }
 
 function addViewButton(invite){
     const $viewDeetsButton= document.createElement('button')
-    $viewDeetsButton.innerText = "View Details"
+    $viewDeetsButton.innerText = "VIEW DETAILS"
     $viewDeetsButton.addEventListener('click', (_) => {
         if (invite.host == true) {
             window.location.replace(`/hostParty.html?user_id=${userId}&party_id=${invite.party_id}`)
@@ -155,10 +165,6 @@ function addViewButton(invite){
     })
     return $viewDeetsButton
 }
-
-$joinPartyButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $joinPartySection])
-})
 
 $joinPartyForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -184,24 +190,17 @@ $joinPartyForm.addEventListener('submit', (event) => {
     .then(response => response.json())
     .then(invite => {
         if (invite.errors){
-            $joinErrors.textContent = invite.errors
+            $joinErrors.textContent = invite.errors[0]
         } else {
             event.target.reset()
             displayParty(invite)
-            toggleHidden([$displayParties, $joinPartySection])
+            hideElements([$createPartyForm.parentNode, $joinPartySection])
+            showElements([$displayParties])
         }
     })
 })
 
-$backFromJoinButton.addEventListener('click', (_) => {
-    toggleHidden([$displayParties, $joinPartySection])
-})
-
-$viewTastingsButton.addEventListener('click', (_) => {
-    window.location.replace(`/tastings.html?user_id=${userId}`)
-})
-
-$logOutButton.addEventListener('click', (_) => {
-    localStorage.removeItem('token')
-    window.location.replace(`/`)
-})
+function reverseDate(date){
+    let dateArray = date.split('-')
+    return [...dateArray.slice(1, 3), ...dateArray.slice(0, 1)].join('-')
+}

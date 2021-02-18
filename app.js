@@ -19,34 +19,34 @@ const $nav = document.querySelector('nav')
 $homeButtons.forEach($button => {
     $button.addEventListener('click', (_) => {
         console.log('home button')
-        $nav.classList.remove('hidden')
+        showElements([$nav])
     })
 })
 
 $newUserButtons.forEach($button => {
     $button.addEventListener('click', (_) => {
         hideElements([$homeSection, $loginSection, $aboutSection])
-        $createUserSection.classList.remove('hidden')
+        showElements([$createUserSection])
     })
 })
 
 $loginButtons.forEach($button => {
     $button.addEventListener('click', (_) => {
         hideElements([$homeSection, $createUserSection, $aboutSection])
-        $loginSection.classList.remove('hidden')
+        showElements([$loginSection])
     })
 })
 
 $aboutButtons.forEach($button => {
     $button.addEventListener('click', (_) => {
     hideElements([$homeSection, $loginSection, $createUserSection])
-    $aboutSection.classList.remove('hidden')
+    showElements([$aboutSection])
     })
 })
 
 $h1.addEventListener('click', (_) => {
     hideElements([$aboutSection, $loginSection, $createUserSection, $nav])
-    $homeSection.classList.remove('hidden')
+    showElements([$homeSection])
 })
 
 $loginForm.addEventListener('submit', (event) => {
@@ -93,10 +93,6 @@ $createUserForm.addEventListener('submit', (event) => {
         })
 })
 
-function toggleHidden(array) {
-    array.forEach(element => element.classList.toggle("hidden"))
-}
-
 function login(username, password) {
     fetch(`${$backendURL}login`, {
         method: "POST",
@@ -129,3 +125,6 @@ function hideElements(array){
     array.forEach(element => element.classList.add('hidden'))
 }
 
+function showElements(array){
+    array.forEach(element => element.classList.remove('hidden'))
+}

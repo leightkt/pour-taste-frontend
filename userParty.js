@@ -6,8 +6,10 @@ const $partyTime = document.querySelector('.party-time')
 const $partyHost = document.querySelector('.party-host')
 const $rateWines = document.querySelector('.rate-wines')
 const $rateErrors = document.querySelector('.rate-wine-errors')
+
 const $userPageButton = document.querySelector('.user-page')
 const $seeResultsButton = document.querySelector('.see-results')
+const $deleteButton = document.querySelector('.delete-party')
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = searchParams.get('user_id')
@@ -33,6 +35,7 @@ fetch(`${backendURL}userpartydeets`, {
             window.location.replace(`/`)
         } else {
             attendeeMode(partyData)
+            addDeletePartyAction(partyData)
         }
     })
 
@@ -162,3 +165,22 @@ $seeResultsButton.addEventListener('click', (_) => {
 $userPageButton.addEventListener('click', (_) => {
     window.location.replace(`/user.html?user_id=${userId}`)
 })
+
+function addDeletePartyAction(partyData) {
+    $deleteButton.addEventListener('click', (_) => {
+        fetch(`${backendURL}invitations/${partyData.invite.id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${localStorage.token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                host: false
+            })
+        })
+            .then(response => response.json())
+            .then(window.location.replace(`/user.html?user_id=${userId}`))
+    })
+}
