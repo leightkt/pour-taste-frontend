@@ -1,8 +1,5 @@
 const $backendURL = 'http://localhost:9000/'
 const $loginForm = document.querySelector(".login-form")
-const $newUserButton = document.querySelector(".new-user")
-const $aboutButton = document.querySelector('.about')
-const $loginButton = document.querySelector('.log-in')
 const $createUserForm = document.querySelector(".create-user")
 const $loginErrors = document.querySelector(".login-errors")
 const $signupErrors = document.querySelector(".signup-errors")
@@ -11,6 +8,46 @@ const $loginSection = document.querySelector('.login')
 const $createUserSection = document.querySelector('.create-user-section')
 const $aboutSection = document.querySelector('.about-section')
 const $h1 = document.querySelector('h1')
+
+const $newUserButtons = Array.from(document.querySelectorAll(".new-user"))
+const $aboutButtons = Array.from(document.querySelectorAll('.about'))
+const $loginButtons = Array.from(document.querySelectorAll('.log-in'))
+const $homeButtons = Array.from(document.querySelectorAll('.home-button'))
+const $nav = document.querySelector('nav')
+
+
+$homeButtons.forEach($button => {
+    $button.addEventListener('click', (_) => {
+        console.log('home button')
+        $nav.classList.remove('hidden')
+    })
+})
+
+$newUserButtons.forEach($button => {
+    $button.addEventListener('click', (_) => {
+        hideElements([$homeSection, $loginSection, $aboutSection])
+        $createUserSection.classList.remove('hidden')
+    })
+})
+
+$loginButtons.forEach($button => {
+    $button.addEventListener('click', (_) => {
+        hideElements([$homeSection, $createUserSection, $aboutSection])
+        $loginSection.classList.remove('hidden')
+    })
+})
+
+$aboutButtons.forEach($button => {
+    $button.addEventListener('click', (_) => {
+    hideElements([$homeSection, $loginSection, $createUserSection])
+    $aboutSection.classList.remove('hidden')
+    })
+})
+
+$h1.addEventListener('click', (_) => {
+    hideElements([$aboutSection, $loginSection, $createUserSection, $nav])
+    $homeSection.classList.remove('hidden')
+})
 
 $loginForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -21,27 +58,6 @@ $loginForm.addEventListener('submit', (event) => {
 
     login(username, password)
 })
-
-$newUserButton.addEventListener('click', (_) => {
-    hideElements([$homeSection, $loginSection, $aboutSection])
-    $createUserSection.classList.remove('hidden')
-})
-
-$loginButton.addEventListener('click', (_) => {
-    hideElements([$homeSection, $createUserSection, $aboutSection])
-    $loginSection.classList.remove('hidden')
-})
-
-$aboutButton.addEventListener('click', (_) => {
-    hideElements([$homeSection, $loginSection, $createUserSection])
-    $aboutSection.classList.remove('hidden')
-})
-
-$h1.addEventListener('click', (_) => {
-    hideElements([$aboutSection, $loginSection, $createUserSection])
-    $homeSection.classList.remove('hidden')
-})
-
 
 $createUserForm.addEventListener('submit', (event) => {
     event.preventDefault()

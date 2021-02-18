@@ -15,14 +15,17 @@
 <body>
     <header>
         <h1>Pour Taste</h1>
-        <nav>
-            <button class="about">About</button>
-            <button class="log-in">Log In</button>
-            <button class="new-user">Sign Up</button>
+        <nav class="hidden">
+            <button class="about">ABOUT</button>
+            <button class="log-in">LOG IN</button>
+            <button class="new-user">SIGN UP</button>
         </nav>
     </header>
     <main>
         <section class="home">
+            <button class="about home-button">ABOUT</button>
+            <button class="log-in home-button">LOG IN</button>
+            <button class="new-user home-button">SIGN UP</button>
         </section>
         <section class="about-section hidden">
             <h2>WELCOME</h2>
@@ -81,9 +84,9 @@
                 <input type="text" name="username" id="username" placeholder="username">
                 <label for="password" class="hidden">Password</label>
                 <input type="password" name="password" id="password" placeholder="password">
-                <input type="submit" value="Log In">
+                <p class="login-errors"></p>
+                <input type="submit" value="LOG IN">
             </form>
-            <p class="login-errors"></p>
         </section>
         <section class="create-user-section hidden">
             <form class="create-user">
@@ -95,9 +98,9 @@
                 <input type="text" name="username" id="new-username" placeholder="username">
                 <label for="new-password" class="hidden">Password</label>
                 <input type="password" name="password" id="new-password" placeholder="password">
-                <input type="submit" value="Create Account">
+                <p class="signup-errors"></p>
+                <input type="submit" value="SIGN UP">
             </form>
-            <p class="signup-errors"></p>
         </section>
     </main>
     <footer>
