@@ -81,4 +81,4 @@ Run your rails server on port 9000 with rails s -p 9000.
 Download the frontend and run lite-server. 
 
 ## DEMONSTRATION
-A demostration of the app can be viewed here:
+A demostration of the app can be viewed here: https://youtu.be/9kxwHwgc114 
