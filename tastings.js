@@ -133,10 +133,9 @@ function addTypeSearch(tastings) {
         if (type === "All"){
             tastings.forEach(tasting => displayTasting(tasting))
         } else {
-            const filteredTastings = tastings.filter((tasting) => tasting.wine.wine_type === type.toLowerCase())
+            const filteredTastings = tastings.filter((tasting) => tasting.wine.wine_type.toLowerCase() === type.toLowerCase())
             filteredTastings.forEach(tasting => displayTasting(tasting))
         }
-        
     })
 }
 

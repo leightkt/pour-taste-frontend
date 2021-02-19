@@ -354,15 +354,6 @@ select {
 
 /* Tastings */
 
-.tasting-card > h3 {
-    font-weight: normal;
-    text-transform: uppercase;
-}
-
-.tasting-card > .notes {
-    font-size: 1.5rem;
-}
-
 .search-by-rating, .search-by-type {
     display: flex;
     flex-direction: row;
@@ -406,6 +397,15 @@ select {
 .tasting-card {
     min-width: 100%;
     width: 100%;
+}
+
+.tasting-card > h3 {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.tasting-card > .notes {
+    font-size: 1.25rem;
 }
 /* ALL */
 .green {
