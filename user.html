@@ -34,12 +34,13 @@
         </section>
         <section class="create-party hidden">
             <form class="create-party-form">
-                <label for="date">Date</label>
+                <h2>HOST A PARTY</h2>
+                <label for="date" class="hidden">Date</label>
                 <input type="date" name="date" id="date">
-                <label for="time">Time</label>
+                <label for="time" class="hidden">Time</label>
                 <input type="time" name="time" id="time">
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location">
+                <label for="location" class="hidden">Location</label>
+                <input type="text" name="location" id="location" placeholder="LOCATION">
                 <p class="create-party-errors"></p>
                 <input type="submit" value="Create Party">
             </form>
@@ -48,8 +49,8 @@
             <h2>JOIN A PARTY</h2>
             <p>Ask your host for the party ID and enter it here:</p>
             <form class="join-party-form">
-                <label for="party_id">Party Id:</label>
-                <input type="number" name="party_id", id="party_id">
+                <label for="party_id" class="hidden">Party Id:</label>
+                <input type="number" name="party_id", id="party_id" placeholder="PARTY ID">
                 <p class="join-errors"></p>
                 <input type="submit" value="Join Party">
             </form>

@@ -9,12 +9,13 @@ const $addWine = document.querySelector('.add-wine')
 const $addErrors = document.querySelector('.add-errors')
 const $rateErrors = document.querySelector('.rate-wine-errors')
 const $partyId = document.querySelector('.party-id')
-const $userPageButton = document.querySelector('.user-page')
+
+const $accountButton = document.querySelector('.user-page')
 const $statusButton = document.querySelector('.party-status')
 const $seeResultsButton = document.querySelector('.see-results')
 const $totalScoresButton = document.querySelector('.total-scores')
-
 const $deleteButton = document.querySelector('.delete-party')
+const $addWineButton = document.querySelector('.add-a-wine')
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = searchParams.get('user_id')
@@ -48,6 +49,27 @@ fetch(`${backendURL}partydeets`, {
         }
     })
 
+function hideElements(array){
+    array.forEach(element => element.classList.add('hidden'))
+}
+
+function showElements(array){
+    array.forEach(element => element.classList.remove('hidden'))
+}
+
+$addWineButton.addEventListener('click', (_) => {
+    hideElements([$rateWines])
+    showElements([$addWine.parentNode])
+})
+
+$seeResultsButton.addEventListener('click', (_) => {
+    window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+})
+
+$accountButton.addEventListener('click', (_) => {
+    window.location.replace(`user.html?user_id=${userId}`)
+})
+
 function checkPartyStatus(partyData){
     if (partyData.party.party_open == true) {
         displayTastingsHost(partyData)
@@ -60,7 +82,7 @@ function checkPartyStatus(partyData){
 }
 
 function displayPartyDeets(partyData) {
-    $partyDate.textContent = partyData.party.date
+    $partyDate.textContent = reverseDate(partyData.party.date)
     $partyLocation.textContent = partyData.party.location
     $partyTime.textContent = partyData.party.time
 }
@@ -69,7 +91,7 @@ function hostMode(partyData) {
     displayPartyDeets(partyData)
     $partyHost.textContent = "You're hosting!"
     checkPartyStatus(partyData)
-    $partyId.textContent = `Party ID: ${partyId}`
+    $partyId.textContent = `PARTY ID: ${partyId}`
 }
 
 function addWineToParty() {
@@ -109,6 +131,8 @@ function addWineToParty() {
             } else {
                 event.target.reset()
                 appendTastingHost(tasting)
+                showElements([$rateWines])
+                hideElements([$addWine.parentNode])
             }
         })
     })
@@ -131,37 +155,35 @@ function appendTastingHost(tasting) {
     const $notes = document.createElement('textarea')
     $notes.id = "notes"
     $notes.name = "notes"
+    $notes.placeholder ="tasting notes"
 
     let tasting_id = null
 
     const $submitRatingButton = document.createElement('input')
     $submitRatingButton.type = "submit"
-    $submitRatingButton.value = "Submit"
+    $submitRatingButton.value = "RATE"
     $submitRatingButton.classList.add('.submit-rating')
     
     const $deleteWineButton = document.createElement('button')
     $deleteWineButton.classList.add('delete-wine')
-    $deleteWineButton.innerText = "Remove From Party"
+    $deleteWineButton.innerText = "REMOVE"
 
     const $wineRatingInput = addWineRatingInput()
 
     if (tasting.letter) {
         $wineLabel.for = tasting.wine.brand
-        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.year} [${tasting.letter}]`
+        $wineLabel.textContent = `${capitalizeWord(tasting.wine.brand)} ${capitalizeWord(tasting.wine.variety)} [${tasting.letter}]`
         tasting_id = tasting.id
         let notes = tasting.notes
         checkForRating($wineForm, tasting.rating, $notes, notes, $wineRatingInput, $submitRatingButton)
     } else {
         $wineLabel.for = tasting.wine.brand
-        $wineLabel.textContent = `${tasting.wine.brand}: ${tasting.wine.year} [${tasting.tasting.letter}]`
+        $wineLabel.textContent = `${capitalizeWord(tasting.wine.brand)} ${capitalizeWord(tasting.wine.variety)} [${tasting.tasting.letter}]`
         tasting_id = tasting.tasting.id
         let notes = tasting.tasting.notes
         checkForRating($wineForm, tasting.tasting.rating, $notes, notes, $wineRatingInput, $submitRatingButton)
     }
 
-    
-
-    
     addSubmitRatingAction($wineForm, tasting_id)
     addDeleteWineAction($deleteWineButton, tasting_id)
     $wineForm.append($wineLabel, $wineRatingInput, $notesLabel, $notes, $submitRatingButton)
@@ -276,10 +298,6 @@ function partyStatusAction(partyData) {
     })
 }
 
-$seeResultsButton.addEventListener('click', (_) => {
-    window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
-})
-
 $totalScoresButton.addEventListener('click', (_) => {
     fetch(`${backendURL}/parties/${partyId}`, {
         method: "PATCH",
@@ -296,10 +314,6 @@ $totalScoresButton.addEventListener('click', (_) => {
     .then(result => {
         window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
     })
-})
-
-$userPageButton.addEventListener('click', (_) => {
-    window.location.replace(`/user.html?user_id=${userId}`)
 })
 
 function addDeletePartyAction(partyData) {
@@ -319,4 +333,13 @@ function addDeletePartyAction(partyData) {
             .then(response => response.json())
             .then(window.location.replace(`/user.html?user_id=${userId}`))
     })
+}
+
+function reverseDate(date){
+    let dateArray = date.split('-')
+    return [...dateArray.slice(1, 3), ...dateArray.slice(0, 1)].join('-')
+}
+
+function capitalizeWord(string){
+    return string.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
 }

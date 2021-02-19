@@ -12,35 +12,40 @@
 <body>
     <header>
         <h1>Pour Taste</h1>
-        <button class="user-page">ACCOUNT</button>
-        <button class="see-results">RESULTS</button>
-        <button class="total-scores">TOTAL SCORES</button>
-        <button class="party-status"></button>
+        <nav>
+            <button class="user-page">ACCOUNT</button>
+            <button class="see-results">RESULTS</button>
+            <button class="total-scores">TOTAL SCORES</button>
+        </nav>
+        
     </header>
     <main>
         <section class="party-details">
-            <h2 class="party-date"></h2>
+            <h3 class="party-date"></h3>
             <h3 class="party-location"></h3>
             <h3 class="party-time"></h3>
             <h3 class="party-host"></h3>
             <h3 class="party-id"></h3>
+            <div>
+                <button class="add-a-wine">ADD A WINE</button>
+                <button class="party-status"></button>
+            </div>
         </section>
         <section class="rate-wines">
-            <button class="add-a-wine">ADD A WINE</button>
+
         </section>
         <p class="rate-wine-errors"></p>
-        <section>
+        <section class="hidden">
             <form class="add-wine">
-                <h2>Add a Wine to Your Party:</h2>
-                <label for="wine-brand">Brand:</label>
-                <input type="text" name="brand" id="wine-brand">
-                <label for="wine-name">Wine Name:</label>
-                <input type="text" name="name" id="wine-name">
-                <label for="wine-year">Year:</label>
-                <input type="number" name="year" id="wine-year">
-                <label for="wine-variety">Variety:</label>
-                <input type="text" name="variety" id="wine-variety" placeholder="Pinot Gris, Chardonnay...">
-                <label for="wine-type">Type:</label>
+                <label for="wine-brand" class="hidden">Brand:</label>
+                <input type="text" name="brand" id="wine-brand" placeholder="BRAND">
+                <label for="wine-name" class="hidden">Wine Name:</label>
+                <input type="text" name="name" id="wine-name" placeholder="NAME">
+                <label for="wine-year" class="hidden">Year:</label>
+                <input type="number" name="year" id="wine-year" placeholder="YEAR">
+                <label for="wine-variety" class="hidden">Variety:</label>
+                <input type="text" name="variety" id="wine-variety" placeholder="PINOT GRIS, CHARDONNAY...">
+                <label for="wine-type" class="hidden">Type:</label>
                 <select name="wine_type" id="wine-type">
                     <option>White</option>
                     <option>Red</option>
@@ -48,13 +53,13 @@
                     <option>Rose</option>
                     <option>Dessert</option>
                 </select>
-                <input type="submit" value="Add Wine to Party">
+                <p class="add-errors"></p>
+                <input type="submit" value="ADD">
             </form>
-            <p class="add-errors"></p>
         </section>
-        <button class="delete-party">DELETE PARTY</button>
     </main>
-    <footer>
+    <footer class="user-footer">
+        <button class="delete-party">DELETE PARTY</button>
     </footer>
 </body>
 </html>
