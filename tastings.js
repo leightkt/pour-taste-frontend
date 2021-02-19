@@ -3,6 +3,8 @@ const backendURL = 'http://localhost:9000/'
 const $displayTastings = document.querySelector('.display-tastings')
 const $searchTastings = document.querySelector('.search-tastings')
 const $searchRatings = document.querySelector('.search-by-rating')
+const $searchSelect = document.querySelector('#rating')
+const $typeSelect = document.querySelector('#type')
 const $searchTypes = document.querySelector('.search-by-type')
 const $userPageButton = document.querySelector('.user-page')
 
@@ -48,29 +50,40 @@ function displayTasting(tasting) {
     $date.classList.add('date')
     $date.classList.add('rating')
 
-    $brand.textContent = tasting.wine.brand
+    $brand.textContent = capitalizeWord(tasting.wine.brand)
     $rating.textContent = tasting.tasting.rating
     $tastydiv.append($brand, $rating)
     checkforName(tasting, $name, $tastydiv)
     checkforVariety(tasting, $variety, $tastydiv)
-    $date.textContent = tasting.date
-    $wineType.textContent = tasting.wine.wine_type
+    $date.textContent = reverseDate(tasting.date)
+    $wineType.textContent = capitalizeWord(tasting.wine.wine_type)
     $tastydiv.append($wineType, $date)
+
+    checkforNotes(tasting, $tastydiv)
 
     $displayTastings.append($tastydiv)
 }
 
 function checkforName(tasting, $name, $tastydiv) {
     if (tasting.wine.name){
-        $name.textContent = tasting.wine.name
+        $name.textContent = capitalizeWord(tasting.wine.name)
         $tastydiv.append($name)
     }
 }
 
 function checkforVariety(tasting, $variety, $tastydiv) {
     if (tasting.wine.variety){
-        $variety.textContent = tasting.wine.variety
+        $variety.textContent = capitalizeWord(tasting.wine.variety)
         $tastydiv.append($variety)
+    }
+}
+
+function checkforNotes(tasting, $tastydiv){
+    if (tasting.tasting.notes) {
+        $notes = document.createElement('p')
+        $notes.classList.add('notes')
+        $notes.textContent = tasting.tasting.notes
+        $tastydiv.append($notes)
     }
 }
 
@@ -98,10 +111,9 @@ function searchAttributes(div, $filter) {
 }
 
 function addRatingSearch(tastings) {
-    $searchRatings.addEventListener('submit', (event) => {
-        event.preventDefault()
+    $searchSelect.addEventListener('change', (event) => {
         $displayTastings.innerHTML = ""
-        const formData = new FormData(event.target)
+        const formData = new FormData($searchRatings)
         const rating = formData.get('rating')
         if (rating == "All") {
             tastings.forEach(tasting => displayTasting(tasting))
@@ -114,10 +126,9 @@ function addRatingSearch(tastings) {
 }
 
 function addTypeSearch(tastings) {
-    $searchTypes.addEventListener('submit', (event) => {
-        event.preventDefault()
+    $typeSelect.addEventListener('change', (event) => {
         $displayTastings.innerHTML = ""
-        const formData = new FormData(event.target)
+        const formData = new FormData($searchTypes)
         const type = formData.get('type')
         if (type === "All"){
             tastings.forEach(tasting => displayTasting(tasting))
@@ -132,3 +143,12 @@ function addTypeSearch(tastings) {
 $userPageButton.addEventListener('click', (_) => {
     window.location.replace(`/user.html?user_id=${userId}`)
 })
+
+function reverseDate(date){
+    let dateArray = date.split('-')
+    return [...dateArray.slice(1, 3), ...dateArray.slice(0, 1)].join('-')
+}
+
+function capitalizeWord(string){
+    return string.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
+}

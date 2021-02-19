@@ -50,22 +50,24 @@ function addBack(partyData) {
 }
 
 function displayPartyDeets(partyData) {
-    $partyDate.textContent = partyData.party.date
+    $partyDate.textContent = reverseDate(partyData.party.date)
     $partyHost.textContent = `Hosted by: ${partyData.host.host_name}`
     
 }
 
 function checkDate(partyData) {
     const $closedMessage = document.createElement('p')
+    const $closedMessage2 = document.createElement('p')
     const date = new Date()
     const partydate = new Date(partyData.party.date)
-    // checkPartyStatus(partyData, $closedMessage)
-    if (partydate.getTime() > date.getTime()){
-        $closedMessage.textContent = `Time: ${partyData.party.time} Location: ${partyData.party.location}`
-        $results.append($closedMessage)
-    } else {
-        checkPartyStatus(partyData, $closedMessage)
-    }
+    checkPartyStatus(partyData, $closedMessage)
+    // if (partydate.getTime() > date.getTime()){
+    //     $closedMessage.textContent = `Time: ${partyData.party.time}`
+    //     $closedMessage2.textContent = `Location: ${partyData.party.location}`
+    //     $results.append($closedMessage, $closedMessage2)
+    // } else {
+    //     checkPartyStatus(partyData, $closedMessage)
+    // }
 }
 
 function checkPartyStatus(partyData, $closedMessage) {
@@ -81,16 +83,17 @@ function displayResults(partyData) {
     displayWinner(partyData)
     partyData.scores.forEach(scoreData => {
         const $wineScoreCard = document.createElement('div')
+        $wineScoreCard.classList.add('result-card')
         const $wineBrand = document.createElement('h4')
         const $wineScore = document.createElement('h4')
         const $wineName = document.createElement('h5')
         const $wineVariety = document.createElement('p')
         const $wineYear = document.createElement('p')
 
-        $wineBrand.textContent = scoreData.wine.brand
+        $wineBrand.textContent = scoreData.wine.brand.toUpperCase()
         $wineScore.textContent = scoreData.score
-        $wineName.textContent = scoreData.wine.name
-        $wineVariety.textContent = scoreData.wine.variety
+        $wineName.textContent = capitalizeWord(scoreData.wine.name)
+        $wineVariety.textContent = capitalizeWord(scoreData.wine.variety)
         $wineYear.textContent = scoreData.wine.year
 
         $wineScoreCard.append($wineBrand, $wineScore, $wineName, $wineVariety, $wineYear)
@@ -100,12 +103,22 @@ function displayResults(partyData) {
 
 function displayWinner(partyData) {
     const $winnerCard = document.createElement('div')
+    $winnerCard.classList.add('result-card')
     const $winnerHeading = document.createElement('h2')
     const $winner = document.createElement('h3')
     const $winningScore = document.createElement('h3')
     $winnerHeading.textContent = "Winner!"
-    $winner.textContent = partyData.winner.wine.brand
+    $winner.textContent = partyData.winner.wine.brand.toUpperCase()
     $winningScore.textContent = partyData.winner.score
     $winnerCard.append($winnerHeading, $winner, $winningScore)
     $results.append($winnerCard)
+}
+
+function reverseDate(date){
+    let dateArray = date.split('-')
+    return [...dateArray.slice(1, 3), ...dateArray.slice(0, 1)].join('-')
+}
+
+function capitalizeWord(string){
+    return string.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
 }

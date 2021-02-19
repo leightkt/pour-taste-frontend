@@ -12,15 +12,17 @@
 <body>
     <header>
         <h1>Pour Taste</h1>
-        <button class="user-page">Account</button>
+        <nav>
+            <button class="user-page">Account</button>
+        </nav>
     </header>
     <main>
         <form class="search-tastings">
-            <label for="search">Search Favs:</label>
-            <input id="search" name="search" type="text">
+            <label for="search" class="hidden">Search Favorites</label>
+            <input id="search" name="search" type="text" placeholder="SEARCH FAVS">
         </form>
         <form class="search-by-rating">
-            <label for="rating">Search by Rating:</label>
+            <label for="rating">Rating</label>
             <select name="rating" id="rating">
                 <option>All</option>
                 <option>1</option>
@@ -34,23 +36,21 @@
                 <option>9</option>
                 <option>10</option>
             </select>
-            <input type="submit" value="Rating">
         </form>
         <form class="search-by-type">
             <label for="type">Type</label>
             <select name="type" id="type">
+                <option>All</option>
                 <option>White</option>
                 <option>Red</option>
                 <option>Sparkling</option>
                 <option>Rose</option>
                 <option>Dessert</option>
-                <option>All</option>
             </select>
-            <input type="submit" value="Type">
         </form>
         <section class="display-tastings"></section>
     </main>
-    <footer>
+    <footer class="user-footer">
     </footer>
 </body>
 </html>

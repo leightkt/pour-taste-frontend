@@ -1,318 +1,408 @@
+html {
+    margin: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Thasadith', sans-serif;
+}
 
+header {
+    position: absolute;
+    top: 0;
+    margin-top: 0;
+    height: 11rem;
+    width: 100%;
+    background-image: url('./assets/header-image.jpg');
+    background-size: contain;
+    background-size: cover;
+    color: white;
+    text-align: right;
+}
 
+h1 {
+    font-family: 'Sofia', cursive;
+    font-size: 2.75rem;
+    margin: 3rem 0.75rem 0.25rem 0;
+}
 
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
+nav > button {
+    background-color: hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 0.5rem;
+    width: 6rem;
+    height: 2.25rem;
+    border-radius: 1rem;
+    font-family: 'Thasadith', sans-serif;
+    font-weight: bolder;
+    font-size: 1rem;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 
-@media only screen and (max-width: 600px) {
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Thasadith', sans-serif;
-    }
+footer > button {
+    background-color:  hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 0.75rem 0 0 15rem;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    font-family: 'Thasadith', sans-serif;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 
-    header {
-        position: absolute;
-        top: 0;
-        margin-top: 0;
-        height: 11rem;
-        width: 100%;
-        background-image: url('./assets/header-image.jpg');
-        background-size: contain;
-        background-size: cover;
-        color: white;
-        text-align: right;
-    }
+.home > button {
+    background-color: hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 1rem;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-family: 'Thasadith', sans-serif;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 
-    h1 {
-        font-family: 'Sofia', cursive;
-        font-size: 2.75rem;
-        margin: 3rem 0.75rem 0.25rem 0;
-    }
+main {
+    margin-top: 12rem;
+    margin-bottom: 0;
+    width: 100%;
+}
 
-    nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
+footer {
+    border-top: 1px solid black;
+    padding: 1rem 0 0 1rem;
+    height: 1.5rem;
+}
 
-    nav > button {
-        background-color: hsl(352, 95%, 42%);
-        color: white;
-        border: none;
-        margin: 0.5rem;
-        width: 6rem;
-        height: 2rem;
-        border-radius: 1rem;
-        font-family: 'Thasadith', sans-serif;
-        box-shadow: 2px 2px hsl(351, 100%, 9%);
-    }
+.about-dev {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 4rem;
+}
 
-    footer > button {
-        background-color: hsla(352, 95%, 42%, 0.637);
-        color: white;
-        border: none;
-        margin: 0.5rem;
-        width: 6rem;
-        height: 2rem;
-        border-radius: 1rem;
-        font-family: 'Thasadith', sans-serif;
-        box-shadow: 2px 2px hsl(351, 100%, 9%);
-    }
+.about-dev > p {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
 
-    .home > button {
-        background-color: hsl(352, 95%, 42%);
-        color: white;
-        border: none;
-        margin: 4rem 0 0 0;
-        width: 10rem;
-        height: 3rem;
-        border-radius: 1rem;
-        font-size: 1.5rem;
-        font-family: 'Thasadith', sans-serif;
-        box-shadow: 2px 2px hsl(351, 100%, 9%);
-    }
+.about-dev > a > img {
+    height: 3rem;
+    margin-right: 0.5rem;
+    border-radius: 2rem;
+}
 
-    main {
-        margin-top: 12rem;
-        margin-bottom: 0;
-        width: 100%;
-    }
+.home {
+    background-image: url('/assets/wine-bubble.jpg');
+    background-size: contain;
+    background-size: cover;
+    height: 33rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
-    footer {
-        border-top: 1px solid black;
-        padding: 1rem 0 0 1rem;
-        height: 1.5rem;
-    }
+form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+}
 
-    .about-dev {
-        display: flex;
-        flex-direction: row;
-        justify-content: right;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        height: 4rem;
-    }
+form > input[type="submit"] {
+    background-color: hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 0.5rem;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 1rem;
+    font-family: 'Thasadith', sans-serif;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 
-    .about-dev > p {
-        font-size: 0.75rem;
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
-    }
+form > input {
+    width: 16rem;
+    height: 2rem;
+    margin: 1rem;
+    font-family: 'Thasadith', sans-serif;
+    font-size: 1.25rem;
+    border: none;
+    border-bottom: 1px solid hsl(352, 95%, 42%);
+}
 
-    .about-dev > a > img {
-        height: 3rem;
-        margin-right: 0.5rem;
-        border-radius: 2rem;
-    }
+form > p {
+    color:hsl(352, 95%, 42%);
+    margin-left: 1rem;
+    margin-right: 2.25rem;
+}
 
-    .home {
-        background-image: url('/assets/wine-bubble.jpg');
-        background-size: contain;
-        background-size: cover;
-        height: 33rem;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
+.about-section {
+    padding: 0 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        padding-left: 2rem;
-    }
+.about-section p {
+    margin: 0.25rem;
+}
 
-    form > input[type="submit"] {
-        background-color: hsl(352, 95%, 42%);
-        color: white;
-        border: none;
-        margin: 0.5rem;
-        width: 6rem;
-        height: 2rem;
-        border-radius: 1rem;
-        font-family: 'Thasadith', sans-serif;
-        box-shadow: 2px 2px hsl(351, 100%, 9%);
-    }
+.create-user-section, .login, .join-party-section, .display-parties {
+    min-height: 33rem;
+    padding: 1rem 0 0 1rem;
+}
 
-    form > input {
-        width: 12rem;
-        height: 2rem;
-        margin: 1rem;
-        font-family: 'Thasadith', sans-serif;
-        border: none;
-        border-bottom: 1px solid hsl(352, 95%, 42%);
-    }
+    /* USER PAGE */
 
-    form > p {
-        color:hsl(352, 95%, 42%);
-        margin-left: 1rem;
-    }
+.create-party {
+    min-height: 34rem;
+    padding: 1rem 0 0 1rem;
+}
 
-    .about-section {
-        padding: 0 2rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
+.user-footer {
+    background-image: url('/assets/wine-bottles.jpg');
+    height: 7rem;
+    background-size: contain;
+    background-size: cover;
+}
 
-    .about-section p {
-        margin: 0.25rem;
-    }
+.party-card, .result-card, .tasting-card {
+    width: 20rem;
+    font-family: 'Thasadith', sans-serif;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    margin-bottom: 1rem;
+    padding: 0 1rem 1rem 1rem;
+    box-shadow: 1px 1px hsla(352, 95%, 42%, 0.198);
+    min-height: 10rem;
+    border-radius: 1rem;
+    text-align: center;
+}
 
-    .create-user-section, .login, .join-party-section, .display-parties {
-        min-height: 33rem;
-        padding: 1rem 0 0 1rem;
-    }
+button {
+    font-family: 'Thasadith', sans-serif;
+    background-color: white;
+    border: 0.5px solid hsl(352, 95%, 42%); 
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    height: 2rem;
+    width: 6rem;
+}
 
-        /* USER PAGE */
+/* HOST PARTY STYLING */
 
-    .create-party {
-        min-height: 34rem;
-        padding: 1rem 0 0 1rem;
-    }
+select {
+    width: 3.5rem;
+    border: none;
+    border-bottom: 1px solid hsl(352, 95%, 42%);
+    margin-left: 1rem;
+    font-size: 1.25rem;
+}
 
-    .user-footer {
-        background-color: black;
-        height: 5rem;
-    }
+.add-wine > select {
+    width: 7rem;
+}
 
-    .party-card {
-        width: 10rem;
-        font-family: 'Thasadith', sans-serif;
-        margin-bottom: 1rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        box-shadow: 1px 1px hsla(352, 95%, 42%, 0.198);
-        min-height: 10rem;
-        border-radius: 1rem;
-        text-align: center;
-    }
+.party-details {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.5rem;
+}
 
-    button {
-        /* border: none; */
-        font-family: 'Thasadith', sans-serif;
-        /* background: hsla(352, 95%, 42%, 0.198); */
-        background-color: white;
-        border: 0.5px solid hsl(352, 95%, 42%); 
-        border-radius: 1rem;
-        margin-bottom: 1rem;
-        font-weight: bold;
-    }
+.party-details > div > button {
+    width: 8rem;
+    height: 2.5rem;
+    margin: 1rem 0.5rem 1rem 0rem;
+}
 
-    /* HOST PARTY STYLING */
+.party-details > h3 {
+    font-family: 'Thasadith', sans-serif;
+    font-weight: lighter;
+    margin: 0.5rem;
+}
 
-    select {
-        width: 4rem;
-        border: none;
-        border-bottom: 1px solid hsl(352, 95%, 42%);
-        margin-left: 1rem;
-    }
+.rate-wines {
+    min-height: 12rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
 
-    .party-details {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
+.delete-wine {
+    background-color: hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 0.5rem;
+    width: 4rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    font-family: 'Thasadith', sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 
-    .party-details > div > button {
-        width: 8rem;
-        height: 2rem;
-        margin: 1rem 0.5rem 1rem 0rem;
-    }
+.rate-wines > form {
+    font-family: 'Thasadith', sans-serif;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0.5rem 0.25rem 0.25rem 0.25rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
 
-    .party-details > h3 {
-        font-family: 'Thasadith', sans-serif;
-        font-weight: lighter;
-        margin: 0.5rem;
-    }
+.rate-wines > form > input[type="submit"] {
+    background-color: white;
+    border: 0.5px solid hsl(352, 95%, 42%);
+    margin: 0.5rem;
+    width: 4rem;
+    height: 3rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    font-family: 'Thasadith', sans-serif;
+    color: hsl(351, 100%, 9%);
+    box-shadow: none;
+}
 
-    .rate-wines {
-        display: flex;
-        flex-direction: column;
-    }
+.rate-wines > form > textarea {
+    min-width: 8rem;
+    min-height: 4rem;
+    border: 0.5px solid hsl(351, 100%, 91%);
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+}
 
-    .delete-wine {
-        background-color: hsl(352, 95%, 42%);
-        color: white;
-        border: none;
-        margin: 0.5rem;
-        width: 4rem;
-        height: 1.5rem;
-        border-radius: 1rem;
-        font-family: 'Thasadith', sans-serif;
-        font-weight: normal;
-        font-size: 12px;
-        box-shadow: 2px 2px hsl(351, 100%, 9%);
-    }
+.rate-wines > button {
+    margin: 0.25rem 0 1rem 0.5rem;
+    box-shadow: none;
+    height: 2.25rem;
+    width: 6rem;
+    font-size: 1rem;
+}
 
-    .rate-wines > form {
-        font-family: 'Thasadith', sans-serif;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin: 0.5rem 0.25rem 0.25rem 0.25rem;
-        padding: 0.25rem;
-        border-radius: 0.5rem;
-    }
+.rate-wines > p {
+    color:hsl(352, 95%, 42%);
+    margin-left: 1rem;
+}
 
-    .rate-wines > form > input[type="submit"] {
-        background-color: white;
-        border: 0.5px solid hsl(352, 95%, 42%);
-        margin: 0.5rem;
-        width: 4rem;
-        height: 3rem;
-        border-radius: 1rem;
-        font-size: 12px;
-        font-family: 'Thasadith', sans-serif;
-        color: hsl(351, 100%, 9%);
-        box-shadow: none;
-    }
+.rate-wines > form > label {
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 0;
+}
 
-    .rate-wines > form > textarea {
-        min-width: 10rem;
-        height: 3rem;
-        border: 0.5px solid hsl(351, 100%, 91%);
-        border-radius: 0.25rem;
-    }
+.rate-wines > form > select {
+    margin: 0 0.5rem 0.25rem 0.5rem;
+    width: 3rem;
+    height: 3rem;
+}
 
-    .rate-wines > button {
-        margin: 0.25rem 0 1rem 0.5rem;
-        box-shadow: none;
-        height: 2.25rem;
-        width: 6rem;
-    }
+/* Party Results */
 
-    .rate-wines > p {
-        color:hsl(352, 95%, 42%);
-        margin-left: 1rem;
-    }
+.results {
+    min-height: 29rem;
+    margin: 1rem;
+}
 
-    .rate-wines > form > label {
-        font-size: 0.9rem;
-        margin: 0;
-        padding: 0;
-    }
+.party-deets {
+    margin: 2rem 2rem 4rem 2rem;
+}
 
-    .rate-wines > form > select {
-        margin: 0 0.5rem 0.25rem 0.5rem;
-        width: 3rem;
-        height: 3rem;
-    }
+.party-deets > h2 {
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
 
-    .green {
-        background-color: hsl(350deg 43% 95%);
-    }
+.results > p {
+    font-size: 2rem;
+}
 
-    .hidden { 
-        display: none;
-    }
+.result-card > h4 {
+    font-weight: lighter;
+    margin: 0;
+}
+
+.result-card > h5 {
+    font-weight: normal;
+}
+
+/* Tastings */
+
+.tasting-card > h3 {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.tasting-card > .notes {
+    font-size: 1.5rem;
+}
+
+.search-by-rating, .search-by-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem 1.5rem 1rem 1rem;
+}
+
+.search-by-type > label {
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
+
+.search-by-rating > label {
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
+
+.search-by-rating > select {
+    font-size: 1.25rem;
+    font-family: 'Thasadith', sans-serif;
+    width: 7rem;
+}
+
+.search-by-type > select {
+    font-size: 1.25rem;
+    font-family: 'Thasadith', sans-serif;
+    width: 7rem;
+}
+
+.display-tastings {
+    margin-top: 3rem;
+    min-height: 18rem;
+}
+
+/* ALL */
+.green {
+    background-color: hsl(350deg 43% 95%);
+}
+
+.hidden { 
+    display: none;
 }

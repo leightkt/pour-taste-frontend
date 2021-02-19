@@ -272,10 +272,10 @@ function addDeleteWineAction($deleteWineButton, tasting_id) {
 function partyStatusAction(partyData) {
     let open_party = null
     if (partyData.party.party_open === true){
-        $statusButton.textContent = "Close Party"
+        $statusButton.textContent = "ClOSE PARTY"
         open_party = false
     } else {
-        $statusButton.textContent = "Open Party"
+        $statusButton.textContent = "OPEN PARTY"
         open_party = true
     }
     $statusButton.addEventListener('click', (_) => {
