@@ -106,11 +106,11 @@ $createPartyForm.addEventListener('submit', (event) => {
     })
         .then(response => response.json())
         .then(invite => {
+            console.log(invite)
             if (invite.errors){
                 $createPartyErrors.textContent = invite.errors[0]
             } else {
                 event.target.reset()
-                displayParty(invite)
                 hideElements([$createPartyForm.parentNode, $joinPartySection])
                 showElements([$displayParties])
             }
@@ -141,9 +141,11 @@ function setHost(invite){
 }
 
 function appendParty(invite, $partydiv, $host){
-    const date = new Date()
+    const today = new Date()
+    let yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
     const partydate = new Date(invite.party.date)
-    if (partydate.getTime() > date.getTime()){
+    if (partydate.getTime() >= yesterday.getTime()){
         const $viewDeetsButton = addViewButton(invite)
         $partydiv.append($viewDeetsButton)
         $upcomingParties.prepend($partydiv)

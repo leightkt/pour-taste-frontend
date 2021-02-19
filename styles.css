@@ -53,9 +53,9 @@ footer > button {
     border: none;
     margin: 0.75rem 0 0 15rem;
     width: 6rem;
-    height: 2rem;
+    height: 2.25rem;
     border-radius: 1rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-family: 'Thasadith', sans-serif;
     box-shadow: 2px 2px hsl(351, 100%, 9%);
 }
@@ -130,7 +130,7 @@ form > input[type="submit"] {
     color: white;
     border: none;
     margin: 0.5rem;
-    width: 6rem;
+    width: 7rem;
     height: 2rem;
     border-radius: 1rem;
     font-family: 'Thasadith', sans-serif;
