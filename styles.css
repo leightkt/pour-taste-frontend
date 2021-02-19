@@ -395,9 +395,18 @@ select {
 
 .display-tastings {
     margin-top: 3rem;
-    min-height: 18rem;
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    height: 30rem;
+    max-height: 35rem;
+    width: 100%;
 }
 
+.tasting-card {
+    min-width: 100%;
+    width: 100%;
+}
 /* ALL */
 .green {
     background-color: hsl(350deg 43% 95%);
