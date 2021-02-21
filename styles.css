@@ -208,6 +208,17 @@ button {
     width: 6rem;
 }
 
+.delete-account-button { 
+    background-color: hsl(352, 95%, 42%);
+    color: white;
+    border: none;
+    margin: 0.5rem 0.5rem 0.5rem 8rem;
+    width: 7.5rem;
+    height: 2.5rem;
+    border-radius: 1rem;
+    font-family: 'Thasadith', sans-serif;
+    box-shadow: 2px 2px hsl(351, 100%, 9%);
+}
 /* HOST PARTY STYLING */
 
 select {

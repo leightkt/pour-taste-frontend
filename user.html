@@ -55,9 +55,26 @@
                 <input type="submit" value="Join Party">
             </form>
         </section>
+        <section class="account-section hidden">
+            <h2>YOUR ACCOUNT</h2>
+            <form class="update-account-form">
+                <label for="account-name" class="hidden">Name:</label>
+                <input type="text" name="name" id="account-name">
+                <label for="account-username" class="hidden">Username:</label>
+                <input type="text" name="username" id="account-username">
+                <label for="account-email" class="hidden">Email:</label>
+                <input type="text" name="email" id="account-email">
+                <label for="account-password" class="hidden">Password:</label>
+                <input type="password" name="password" id="account-password" placeholder="*********">
+                <input type="submit" value="UPDATE">
+                <p class="update-account-errors"></p>
+            </form>
+            <button class="delete-account-button">DELETE ACCOUNT</button>
+        </section>
     </main>
     <footer class="user-footer">
         <button class="log-out-button">SIGN OUT</button>
+        <button class="edit-account">PROFILE</button>
     </footer>
 </body>
 </html>

@@ -27,6 +27,7 @@ fetch(`${backendURL}viewtastings?id=${userId}`, {
             tastings.forEach(tasting => displayTasting(tasting))
             addRatingSearch(tastings)
             addTypeSearch(tastings)
+            addSearchAction(tastings)
         }
     })
 
@@ -87,11 +88,26 @@ function checkforNotes(tasting, $tastydiv){
     }
 }
 
-$searchTastings.addEventListener('keyup', (_) => {
-    searchFilter()
-})
+function addSearchAction() {
+    $searchTastings.addEventListener('keyup', (_) => {
+        searchFilter()
+    
+    })
+}
 
-function searchFilter(){
+function typeFilter(tastings) {
+    const filteredTastings = tastings.filter((tasting) => tasting.wine.wine_type.toLowerCase() === type.toLowerCase())
+    filteredTastings.forEach(tasting => displayTasting(tasting))
+    return filteredTastings
+}
+
+function ratingFilter(tastings) {
+    const filteredTastings = tastings.filter((tasting) => tasting.tasting.rating >= rating)
+    filteredTastings.forEach(tasting => displayTasting(tasting))
+    return filteredTastings
+}
+
+function searchFilter() {
     let $input = document.querySelector("#search")
     let $filter = $input.value.toUpperCase()
     let $cardDivs = document.querySelectorAll(".tasting-card")
@@ -115,13 +131,18 @@ function addRatingSearch(tastings) {
         $displayTastings.innerHTML = ""
         const formData = new FormData($searchRatings)
         const rating = formData.get('rating')
+
+        const formData2 = new FormData($searchTypes)
+        const type = formData2.get('type')
         if (rating == "All") {
             tastings.forEach(tasting => displayTasting(tasting))
+            typeFilter(tastings)
+            searchFilter()
         } else {
-            const filteredTastings = tastings.filter((tasting) => tasting.tasting.rating >= rating)
-            filteredTastings.forEach(tasting => displayTasting(tasting))
+            const filteredTastings = ratingFilter(tastings)
+            typeFilter(filteredTastings)
+            searchFilter()
         }
-        
     })
 }
 
@@ -130,11 +151,17 @@ function addTypeSearch(tastings) {
         $displayTastings.innerHTML = ""
         const formData = new FormData($searchTypes)
         const type = formData.get('type')
+
+        const formData2 = new FormData($searchRatings)
+        const rating = formData2.get('rating')
         if (type === "All"){
             tastings.forEach(tasting => displayTasting(tasting))
+            ratingFilter(tastings)
+            searchFilter()
         } else {
-            const filteredTastings = tastings.filter((tasting) => tasting.wine.wine_type.toLowerCase() === type.toLowerCase())
-            filteredTastings.forEach(tasting => displayTasting(tasting))
+            typeFilter(tastings)
+            ratingFilter(filteredTastings)
+            searchFilter()
         }
     })
 }

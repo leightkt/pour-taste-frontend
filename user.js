@@ -8,6 +8,10 @@ const $pastParties = document.querySelector(".past")
 const $joinPartySection = document.querySelector('.join-party-section')
 const $joinPartyForm = document.querySelector('.join-party-form')
 const $joinErrors = document.querySelector('.join-errors')
+const $accountSection = document.querySelector('.account-section')
+const $updateAccountForm = document.querySelector('.update-account-form')
+const $updateErrors = document.querySelector('.update-account-errors')
+
 
 const $viewTastingsButton = document.querySelector('.view-tastings')
 const $logOutButton = document.querySelector('.log-out-button')
@@ -16,6 +20,8 @@ const $createPartyButton = document.querySelector(".create-new-party")
 const $joinPartyButton = document.querySelector(".join-party")
 const $pastPartiesButton = document.querySelector(".past-parties")
 const $currentPartiesButton = document.querySelector(".current-parties")
+const $profileButton = document.querySelector('.edit-account')
+const $deleteAccountButton = document.querySelector('.delete-account-button')
 
 const searchParams = new URLSearchParams(window.location.search)
 const userId = parseInt(searchParams.get('user_id'))
@@ -33,7 +39,9 @@ fetch(`${backendURL}users/${userId}`, {
         if (result.message) {
             window.location.replace(`/`)
         } else {
+            console.log(result)
             result.invitations.forEach(invite => displayParty(invite))
+            displayUserInfo(result)
         }
 
     })
@@ -78,6 +86,11 @@ $pastPartiesButton.addEventListener('click', (_) => {
 $currentPartiesButton.addEventListener('click', (_) => {
     hideElements([$pastParties])
     showElements([$upcomingParties])
+})
+
+$profileButton.addEventListener('click', (_) => {
+    hideElements([$joinPartySection, $createPartyForm.parentNode, $displayParties])
+    showElements([$accountSection])
 })
 
 $createPartyForm.addEventListener('submit', (event) => {
@@ -202,7 +215,95 @@ $joinPartyForm.addEventListener('submit', (event) => {
     })
 })
 
-function reverseDate(date){
+function reverseDate(date) {
     let dateArray = date.split('-')
     return [...dateArray.slice(1, 3), ...dateArray.slice(0, 1)].join('-')
 }
+
+function displayUserInfo(result) {
+    const $accountName = document.querySelector('#account-name')
+    const $accountUsername = document.querySelector('#account-username')
+    const $accountEmail = document.querySelector('#account-email')
+    const $accountPassword = document.querySelector('#account-password')
+
+    $accountName.value = result.name
+    $accountUsername.value = result.username
+    $accountEmail.value = result.email
+}
+
+$updateAccountForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    const name = formData.get('name')
+    const username = formData.get('username')
+    const email = formData.get('email')
+    const password = formData.get('password')
+    let user = {}
+
+    if (password === "") {
+        console.log('true')
+        user = {
+            name,
+            username,
+            email,
+        }
+    } else {
+        user = {
+            name,
+            username,
+            email,
+            password
+        }
+    }
+
+    fetch(`${backendURL}users/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            user
+        })
+    })
+    .then(response => response.json())
+    .then(result => { 
+        if (result.errors){
+            $updateErrors.textContent = result.errors[0]
+        } else {
+            $updateErrors.innerHTML = ""
+            $updateAccountForm.reset()
+            displayUserInfo(result)
+        }
+    })
+})
+
+$deleteAccountButton.addEventListener('click', (event) => {
+    event.stopImmediatePropagation()
+    $updateErrors.textContent = "Are you sure you want to delete your account?"
+    const $yesButton = document.createElement('button')
+    const $noButton = document.createElement('button')
+
+    $yesButton.textContent = "YES"
+    $noButton.textContent = "NO"
+    $updateErrors.append($yesButton, $noButton)
+
+    $yesButton.addEventListener('click', (_) => {
+
+        fetch(`${backendURL}users/${userId}`, {
+            method: "DELETE",
+            headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        })
+        .then(window.location.replace('/'))
+    })
+
+    $noButton.addEventListener('click', (_) => {
+        $updateErrors.innerHTML = ""
+    })
+})

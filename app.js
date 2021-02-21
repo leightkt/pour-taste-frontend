@@ -112,7 +112,6 @@ function login(username, password) {
             if (result.errors){
                 $loginErrors.textContent = result.errors
             } else {
-                console.log(result)
                 const token = result.token
                 localStorage.setItem('token', token)
                 $loginForm.reset()
