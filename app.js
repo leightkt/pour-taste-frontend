@@ -1,4 +1,4 @@
-const $backendURL = 'http://localhost:9000/'
+const $backendURL = 'https://pour-taste.herokuapp.com/'
 const $loginForm = document.querySelector(".login-form")
 const $createUserForm = document.querySelector(".create-user")
 const $loginErrors = document.querySelector(".login-errors")
@@ -115,7 +115,7 @@ function login(username, password) {
                 const token = result.token
                 localStorage.setItem('token', token)
                 $loginForm.reset()
-                window.location.replace(`/user.html?user_id=${result.user_id}`)
+                window.location.replace(`https://pour-taste.web.app/user.html?user_id=${result.user_id}`)
             }
         })
 }

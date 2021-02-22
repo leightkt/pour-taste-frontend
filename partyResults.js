@@ -1,4 +1,4 @@
-const backendURL = 'http://localhost:9000/'
+const backendURL = 'https://pour-taste.herokuapp.com/'
 
 const $userPageButton = document.querySelector('.user-page')
 const $partyHost = document.querySelector('.party-host')
@@ -23,7 +23,7 @@ fetch(`${backendURL}parties/${partyId}`, {
     .then(response => response.json())
     .then(partyData => {
         if (partyData.message) {
-            window.location.replace(`/`)
+            window.location.replace(`https://pour-taste.web.app/`)
         } else {
             displayPartyDeets(partyData)
             checkDate(partyData)
@@ -33,7 +33,7 @@ fetch(`${backendURL}parties/${partyId}`, {
     })
 
 $userPageButton.addEventListener('click', (_) => {
-    window.location.replace(`/user.html?user_id=${userId}`)
+    window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`)
 })
 
 
@@ -41,9 +41,9 @@ function addBack(partyData) {
     $backButton.addEventListener('click', (_) => {
         let site = null
         if (partyData.host.host_id == userId){
-            site = 'hostparty.html'
+            site = 'https://pour-taste.web.app/hostparty.html'
         } else {
-            site = 'userParty.html'
+            site = 'https://pour-taste.web.app/userParty.html'
         }
         window.location.replace(`${site}?user_id=${userId}&party_id=${partyId}`)
     })
@@ -60,14 +60,13 @@ function checkDate(partyData) {
     const $closedMessage2 = document.createElement('p')
     const date = new Date()
     const partydate = new Date(partyData.party.date)
-    checkPartyStatus(partyData, $closedMessage)
-    // if (partydate.getTime() > date.getTime()){
-    //     $closedMessage.textContent = `Time: ${partyData.party.time}`
-    //     $closedMessage2.textContent = `Location: ${partyData.party.location}`
-    //     $results.append($closedMessage, $closedMessage2)
-    // } else {
-    //     checkPartyStatus(partyData, $closedMessage)
-    // }
+    if (partydate.getTime() > date.getTime()){
+        $closedMessage.textContent = `Time: ${partyData.party.time}`
+        $closedMessage2.textContent = `Location: ${partyData.party.location}`
+        $results.append($closedMessage, $closedMessage2)
+    } else {
+        checkPartyStatus(partyData, $closedMessage)
+    }
 }
 
 function checkPartyStatus(partyData, $closedMessage) {

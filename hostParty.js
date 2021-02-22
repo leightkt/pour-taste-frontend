@@ -1,4 +1,4 @@
-const backendURL = 'http://localhost:9000/'
+const backendURL = 'https://pour-taste.herokuapp.com/'
 
 const $partyDate = document.querySelector('.party-date')
 const $partyLocation = document.querySelector('.party-location')
@@ -40,7 +40,7 @@ fetch(`${backendURL}partydeets`, {
     .then(response => response.json())
     .then(partyData => {
         if (partyData.message) {
-            window.location.replace(`/`)
+            window.location.replace(`https://pour-taste.web.app/`)
         } else {
             partyStatusAction(partyData)
             hostMode(partyData)
@@ -63,11 +63,11 @@ $addWineButton.addEventListener('click', (_) => {
 })
 
 $seeResultsButton.addEventListener('click', (_) => {
-    window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+    window.location.replace(`https://pour-taste.web.app/partyResults.html?user_id=${userId}&party_id=${partyId}`)
 })
 
 $accountButton.addEventListener('click', (_) => {
-    window.location.replace(`user.html?user_id=${userId}`)
+    window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`)
 })
 
 function checkPartyStatus(partyData){
@@ -293,7 +293,7 @@ function partyStatusAction(partyData) {
         })
         .then(response => response.json())
         .then(result => {
-            window.location.replace(`/hostParty.html?user_id=${userId}&party_id=${partyId}`)
+            window.location.replace(`https://pour-taste.web.app/hostParty.html?user_id=${userId}&party_id=${partyId}`)
         })
     })
 }
@@ -312,7 +312,7 @@ $totalScoresButton.addEventListener('click', (_) => {
     })
     .then(response => response.json())
     .then(result => {
-        window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+        window.location.replace(`https://pour-taste.web.app/partyResults.html?user_id=${userId}&party_id=${partyId}`)
     })
 })
 
@@ -331,7 +331,7 @@ function addDeletePartyAction(partyData) {
             })
         })
             .then(response => response.json())
-            .then(window.location.replace(`/user.html?user_id=${userId}`))
+            .then(window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`))
     })
 }
 

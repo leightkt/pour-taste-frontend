@@ -1,4 +1,4 @@
-const backendURL = 'http://localhost:9000/'
+const backendURL = 'https://pour-taste.herokuapp.com/'
 
 const $partyDate = document.querySelector('.party-date')
 const $partyLocation = document.querySelector('.party-location')
@@ -32,7 +32,7 @@ fetch(`${backendURL}userpartydeets`, {
     .then(response => response.json())
     .then(partyData => {
         if (partyData.message) {
-            window.location.replace(`/`)
+            window.location.replace(`https://pour-taste.web.app/`)
         } else {
             attendeeMode(partyData)
             addDeletePartyAction(partyData)
@@ -181,6 +181,6 @@ function addDeletePartyAction(partyData) {
             })
         })
             .then(response => response.json())
-            .then(window.location.replace(`/user.html?user_id=${userId}`))
+            .then(window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`))
     })
 }

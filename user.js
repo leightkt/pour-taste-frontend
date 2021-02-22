@@ -1,4 +1,4 @@
-const backendURL = 'http://localhost:9000/'
+const backendURL = 'https://pour-taste.herokuapp.com/'
 
 const $createPartyForm = document.querySelector(".create-party-form")
 const $createPartyErrors = document.querySelector(".create-party-errors")
@@ -37,7 +37,7 @@ fetch(`${backendURL}users/${userId}`, {
     .then(response => response.json())
     .then(result => {
         if (result.message) {
-            window.location.replace(`/`)
+            window.location.replace(`https://pour-taste.web.app/`)
         } else {
             result.invitations.forEach(invite => displayParty(invite))
             displayUserInfo(result)
@@ -172,9 +172,9 @@ function addViewButton(invite){
     $viewDeetsButton.innerText = "VIEW DETAILS"
     $viewDeetsButton.addEventListener('click', (_) => {
         if (invite.host == true) {
-            window.location.replace(`/hostParty.html?user_id=${userId}&party_id=${invite.party_id}`)
+            window.location.replace(`https://pour-taste.web.app/hostParty.html?user_id=${userId}&party_id=${invite.party_id}`)
         } else {
-            window.location.replace(`/userParty.html?user_id=${userId}&party_id=${invite.party_id}`)
+            window.location.replace(`https://pour-taste.web.app/userParty.html?user_id=${userId}&party_id=${invite.party_id}`)
         }
     })
     return $viewDeetsButton
@@ -299,7 +299,7 @@ $deleteAccountButton.addEventListener('click', (event) => {
             "Content-Type": "application/json"
         }
         })
-        .then(window.location.replace('/'))
+        .then(window.location.replace('https://pour-taste.web.app/'))
     })
 
     $noButton.addEventListener('click', (_) => {

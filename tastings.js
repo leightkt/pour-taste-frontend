@@ -1,4 +1,4 @@
-const backendURL = 'http://localhost:9000/'
+const backendURL = 'https://pour-taste.herokuapp.com/'
 
 const $displayTastings = document.querySelector('.display-tastings')
 const $searchTastings = document.querySelector('.search-tastings')
@@ -22,7 +22,7 @@ fetch(`${backendURL}viewtastings?id=${userId}`, {
     .then(response => response.json())
     .then(tastings => {
         if (tastings.message) {
-            window.location.replace(`/`)
+            window.location.replace(`https://pour-taste.web.app/`)
         } else {
             tastings.forEach(tasting => displayTasting(tasting))
             addRatingSearch(tastings)
@@ -167,7 +167,7 @@ function displayFilteredTastings(tastings) {
 }
 
 $userPageButton.addEventListener('click', (_) => {
-    window.location.replace(`/user.html?user_id=${userId}`)
+    window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`)
 })
 
 function reverseDate(date){
