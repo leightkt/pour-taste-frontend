@@ -113,10 +113,9 @@ function login(username, password) {
                 $loginErrors.textContent = result.errors
             } else {
                 const token = result.token
-                console.log(result.user_id)
                 localStorage.setItem('token', token)
                 $loginForm.reset()
-                // window.location.replace(`https://pour-taste.web.app/user.html?user_id=${result.user_id}`)
+                window.location.replace(`https://pour-taste.web.app/user.html?user_id=${result.user_id}`)
             }
         })
 }
