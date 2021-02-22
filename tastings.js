@@ -95,15 +95,13 @@ function addSearchAction() {
     })
 }
 
-function typeFilter(tastings) {
+function typeFilter(tastings, type) {
     const filteredTastings = tastings.filter((tasting) => tasting.wine.wine_type.toLowerCase() === type.toLowerCase())
-    filteredTastings.forEach(tasting => displayTasting(tasting))
     return filteredTastings
 }
 
-function ratingFilter(tastings) {
+function ratingFilter(tastings, rating) {
     const filteredTastings = tastings.filter((tasting) => tasting.tasting.rating >= rating)
-    filteredTastings.forEach(tasting => displayTasting(tasting))
     return filteredTastings
 }
 
@@ -134,15 +132,7 @@ function addRatingSearch(tastings) {
 
         const formData2 = new FormData($searchTypes)
         const type = formData2.get('type')
-        if (rating == "All") {
-            tastings.forEach(tasting => displayTasting(tasting))
-            typeFilter(tastings)
-            searchFilter()
-        } else {
-            const filteredTastings = ratingFilter(tastings)
-            typeFilter(filteredTastings)
-            searchFilter()
-        }
+        typeSearch(tastings, type, rating)
     })
 }
 
@@ -154,16 +144,26 @@ function addTypeSearch(tastings) {
 
         const formData2 = new FormData($searchRatings)
         const rating = formData2.get('rating')
-        if (type === "All"){
-            tastings.forEach(tasting => displayTasting(tasting))
-            ratingFilter(tastings)
-            searchFilter()
-        } else {
-            typeFilter(tastings)
-            ratingFilter(filteredTastings)
-            searchFilter()
-        }
+        typeSearch(tastings, type, rating)
     })
+}
+
+function typeSearch(tastings, type, rating) {
+    let filteredTastings = null
+        if (type === "All" && rating === "All") {
+            filteredTastings = tastings
+        } else if (type === "All" && rating !== "All") {
+            filteredTastings = ratingFilter(tastings, rating)
+        } else {
+            filteredTastings = typeFilter(tastings, type)
+            filteredTastings = ratingFilter(filteredTastings, rating)
+            
+        }
+    displayFilteredTastings(filteredTastings)
+}
+
+function displayFilteredTastings(tastings) {
+    tastings.forEach(tasting => displayTasting(tasting))
 }
 
 $userPageButton.addEventListener('click', (_) => {

@@ -39,7 +39,6 @@ fetch(`${backendURL}users/${userId}`, {
         if (result.message) {
             window.location.replace(`/`)
         } else {
-            console.log(result)
             result.invitations.forEach(invite => displayParty(invite))
             displayUserInfo(result)
         }
