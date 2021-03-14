@@ -40,7 +40,7 @@ function addBack(partyData) {
     $backButton.addEventListener('click', (_) => {
         let site = null
         if (partyData.host.host_id == userId){
-            site = 'https://pour-taste.web.app/hostparty.html'
+            site = 'https://pour-taste.web.app/hostParty.html'
         } else {
             site = 'https://pour-taste.web.app/userParty.html'
         }

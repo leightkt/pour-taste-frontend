@@ -118,10 +118,10 @@ $createPartyForm.addEventListener('submit', (event) => {
     })
         .then(response => response.json())
         .then(invite => {
-            console.log(invite)
             if (invite.errors){
                 $createPartyErrors.textContent = invite.errors[0]
             } else {
+                displayParty(invite)
                 event.target.reset()
                 hideElements([$createPartyForm.parentNode, $joinPartySection])
                 showElements([$displayParties])
