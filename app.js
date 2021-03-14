@@ -18,7 +18,6 @@ const $nav = document.querySelector('nav')
 
 $homeButtons.forEach($button => {
     $button.addEventListener('click', (_) => {
-        console.log('home button')
         showElements([$nav])
     })
 })

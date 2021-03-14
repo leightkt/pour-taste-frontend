@@ -38,12 +38,12 @@ nav > button {
     color: white;
     border: none;
     margin: 0.5rem;
-    width: 6rem;
+    width: 5.75rem;
     height: 2.25rem;
     border-radius: 1rem;
     font-family: 'Thasadith', sans-serif;
-    font-weight: bolder;
-    font-size: 1rem;
+    font-size: 0.75rem;
+    font-weight: normal;
     box-shadow: 2px 2px hsl(351, 100%, 9%);
 }
 
@@ -55,8 +55,9 @@ footer > button {
     width: 6rem;
     height: 2.25rem;
     border-radius: 1rem;
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-family: 'Thasadith', sans-serif;
+    font-weight: normal;
     box-shadow: 2px 2px hsl(351, 100%, 9%);
 }
 
@@ -165,7 +166,7 @@ form > p {
     margin: 0.25rem;
 }
 
-.create-user-section, .login, .join-party-section, .display-parties {
+.create-user-section, .login, .join-party-section, .display-parties, .account-section {
     min-height: 33rem;
     padding: 1rem 0 0 1rem;
 }
@@ -425,4 +426,58 @@ select {
 
 .hidden { 
     display: none;
+}
+
+@media only screen and (min-width: 450px) {
+    header {
+        height: 15rem;
+        background-size: 30rem;
+        background-repeat: no-repeat;
+        background-color: black;
+    }
+
+    nav {
+        justify-content: flex-end;
+    }
+
+    nav > button {
+        margin: 2rem;
+    }
+
+    .home {
+        background-size: 35rem;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .about-dev {
+        justify-content: space-around;
+    }
+
+    main {
+        margin-top: 16rem;
+    }
+
+    .user-footer {
+        background-size: 12rem;
+        background-repeat: no-repeat;
+        background-color: black;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    footer > button {
+        margin: 3rem;
+    }
+
+    .display-tastings {
+        flex-wrap: column;
+    }
+
+    .tasting-card {
+        width: 20rem;
+        min-width: unset;
+    }
 }

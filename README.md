@@ -36,7 +36,7 @@ The backend of this app is set up as a Ruby on Rails API to fetch user, party, w
 
 ## MOBILE SPECIFIC STYLING
 
-Currently, this app is only styled for use on mobile devices. Future iterations will include desktop styling. 
+This app is styled for mobile and desktop, though is meant primarily to be used as a mobile app.
 
 ## BACKGROUND INFORMATION
 
@@ -72,13 +72,11 @@ Wines will have a name and a variety, sometimes both, or sometimes only one. The
 Future iterations will allow all the search filters to work in tandem. It may also include a connection to an outside API to help autopopulate the add a wine form and further ensure the integrity of the tasting data being stored in the database, an option to join a party by scanning a QR code provided by the host, and an option to take a picture of a wine label and add it to your tasting notes.  
 
 ## TECHNOLOGY
-This app was created using Ruby on Rails, JWT, ActiveRecord, Javascript, HTML, CSS, and postgresQL. 
+This app was created using Ruby on Rails, JWT, Bcrypt, ActiveRecord, Javascript, HTML, CSS, and postgresQL. 
 
 ## DEPLOYMENT
 Backend repo: https://github.com/leightkt/pour-taste-backend
-To use this app, download the backend files from the repo, cd into the backend folder, and run bundle install, then rails db:migrate.  
-Run your rails server on port 9000 with rails s -p 9000.  
-Download the frontend and run lite-server. 
+This app is deployed at https://pour-taste.web.app/ 
 
 ## DEMONSTRATION
 A demostration of the app can be viewed here: https://youtu.be/9kxwHwgc114 

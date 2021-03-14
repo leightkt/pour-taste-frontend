@@ -11,7 +11,6 @@ const userId = searchParams.get('user_id')
 const partyId = searchParams.get('party_id')
 
 
-
 fetch(`${backendURL}parties/${partyId}`, {
     method: "GET",
     headers: {

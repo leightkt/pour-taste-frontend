@@ -159,11 +159,11 @@ function checkForRating($wineForm, rating, $notes, notes, $wineRatingInput, $sub
 }
 
 $seeResultsButton.addEventListener('click', (_) => {
-    window.location.replace(`partyResults.html?user_id=${userId}&party_id=${partyId}`)
+    window.location.replace(`https://pour-taste.web.app/partyResults.html?user_id=${userId}&party_id=${partyId}`)
 })
 
 $userPageButton.addEventListener('click', (_) => {
-    window.location.replace(`/user.html?user_id=${userId}`)
+    window.location.replace(`https://pour-taste.web.app/user.html?user_id=${userId}`)
 })
 
 function addDeletePartyAction(partyData) {

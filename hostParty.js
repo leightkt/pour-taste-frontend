@@ -45,7 +45,6 @@ fetch(`${backendURL}partydeets`, {
             partyStatusAction(partyData)
             hostMode(partyData)
             addDeletePartyAction(partyData)
-            console.log(partyData)
         }
     })
 

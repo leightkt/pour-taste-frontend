@@ -54,22 +54,22 @@ function showElements(array){
 }
 
 $createPartyButton.addEventListener('click', (_) => {
-    hideElements([$displayParties, $joinPartySection])
+    hideElements([$displayParties, $joinPartySection, $accountSection])
     showElements([$createPartyForm.parentNode])
 })
 
 $accountButton.addEventListener('click', (_) => {
-    hideElements([$createPartyForm.parentNode, $joinPartySection])
+    hideElements([$createPartyForm.parentNode, $joinPartySection, $accountSection])
     showElements([$displayParties])
 })
 
 $joinPartyButton.addEventListener('click', (_) => {
-    hideElements([$createPartyForm.parentNode, $displayParties])
+    hideElements([$createPartyForm.parentNode, $displayParties, $accountSection])
     showElements([$joinPartySection])
 })
 
 $viewTastingsButton.addEventListener('click', (_) => {
-    window.location.replace(`/tastings.html?user_id=${userId}`)
+    window.location.replace(`https://pour-taste.web.app/tastings.html?user_id=${userId}`)
 })
 
 $logOutButton.addEventListener('click', (_) => {
